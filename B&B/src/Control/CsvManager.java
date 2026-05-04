@@ -4,8 +4,8 @@
  */
 package Control;
 
-import Model.Alloggio;
-import Model.Prenotazione;
+import Model.Housing;
+import Model.Booking;
 import java.util.ArrayList;
 
 /**
@@ -14,11 +14,11 @@ import java.util.ArrayList;
  */
 public class CsvManager {
 
-    public ArrayList<Alloggio> caricaAlloggi(String path) {}
+    public ArrayList<Housing> caricaAlloggi(String path) {}
 
-    public void salvaAlloggi(String path, ArrayList<Alloggio> lista) {}
+    public void salvaAlloggi(String path, ArrayList<Housing> lista) {}
 
-    public ArrayList<Prenotazione> caricaPrenotazioni(String path) {}
+    public ArrayList<Booking> caricaPrenotazioni(String path) {}
 
-    public void salvaPrenotazioni(String path, ArrayList<Prenotazione> lista) {}
+    public void salvaPrenotazioni(String path, ArrayList<Booking> lista) {}
 }

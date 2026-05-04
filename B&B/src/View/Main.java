@@ -1,8 +1,8 @@
 package View;
 
-import Control.Gestore;
-import Model.Alloggio;
-import Model.Recensione;
+import Control.Manager;
+import Model.Housing;
+import Model.Review;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Gestore gestore = new Gestore();
+        Manager gestore = new Manager();
 
         // CARICAMENTO DATI
         gestore.caricaDatabase("alloggi.csv", "prenotazioni.csv");
@@ -30,17 +30,17 @@ public class Main {
         servizi.add("wifi");
         servizi.add("cucina");
 
-        Alloggio a = new Alloggio("Casa Bella", "Roma", 3, 80.0, servizi, "appartamento");
+        Housing a = new Housing("Casa Bella", "Roma", 3, 80.0, servizi, "appartamento");
         gestore.aggiungiAlloggio(a);
 
         // RICERCA
-        List<Alloggio> risultati = gestore.cercaPerLocalita("Roma");
+        List<Housing> risultati = gestore.cercaPerLocalita("Roma");
 
         // PRENOTAZIONE
         boolean esito = gestore.prenota("mario", "Casa Bella", 10, 15);
 
         // RECENSIONE
-        Recensione r = new Recensione("mario", 5, "Bellissimo!");
+        Review r = new Review("mario", 5, "Bellissimo!");
         gestore.aggiungiRecensione("Casa Bella", r);
 
         // SALVATAGGIO
