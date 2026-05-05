@@ -10,26 +10,35 @@ package Model;
  */
 public class Review {
 
-    private String autore;
-    private int voto;
-    private String commento;
+    private String author;
+    private int vote;
+    private String comments;
 
-    public Review(String autore, int voto, String commento) {
-        this.autore = autore;
-        this.voto = voto;
-        this.commento = commento;
+    public String getAuthor() {
+        return author;
     }
 
-    public String getAutore() {
-        return autore;
+    public int getVote() {
+        return vote;
     }
 
-    public int getVoto() {
-        return voto;
+    public String getComments() {
+        return comments;
     }
 
-    public String getCommento() {
-        return commento;
+    public Review(String author, int vote, String comments) {
+        this.author = author;
+        this.vote = vote;
+        this.comments = comments;
+    }
+    
+
+    
+    public boolean findWord(){
+        return false;
+    }
+    public boolean isPositive(){
+        return true;
     }
 
 }
