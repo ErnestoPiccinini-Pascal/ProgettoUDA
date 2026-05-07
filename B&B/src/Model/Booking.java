@@ -10,32 +10,37 @@ package Model;
  */
 public class Booking {
 
-    private String nomeUtente;
-    private String nomeAlloggio;
-    private int giornoInizio;
-    private int giornoFine;
+    private String userName;
+    private String housingName;
+    private int firstDay;
+    private int lastDay;
+    private double price;
 
-    public Booking(String nomeUtente, String nomeAlloggio, int giornoInizio, int giornoFine) {
-        this.nomeUtente = nomeUtente;
-        this.nomeAlloggio = nomeAlloggio;
-        this.giornoInizio = giornoInizio;
-        this.giornoFine = giornoFine;
+    public Booking(String userName, String housingName, int firstDay, int lastDay, double price) {
+        this.userName = userName;
+        this.housingName = housingName;
+        this.firstDay = firstDay;
+        this.lastDay = lastDay;
+        this.price = price;
+        price=price*(lastDay-firstDay);
     }
 
-    public String getNomeUtente() {
-        return nomeUtente;
+ 
+    public String getUserName() {
+        return userName;
     }
 
-    public String getNomeAlloggio() {
-        return nomeAlloggio;
+    public String getHousingName() {
+        return housingName;
     }
 
-    public int getGiornoInizio() {
-        return giornoInizio;
+    public int getFirstDay() {
+        return firstDay;
     }
 
-    public int getGiornoFine() {
-        return giornoFine;
+    public int getLastDay() {
+        return lastDay;
     }
+    
 
 }
