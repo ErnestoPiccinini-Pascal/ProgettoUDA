@@ -102,7 +102,52 @@ public class Housing {
     
 
     // LOGICA
-    public boolean verificaDisponibilita(int giornoInizio, int giornoFine) {}
+    public boolean verificaDisponibilita(int giornoInizio, int giornoFine) {
+    
+        for(int i = giornoInizio; i < giornoFine; i++ ){
+            if(disponibilita[i] == false) return false;
+        }
+        return true;
+    }
 
-    public double calcolaMediaRecensioni() {}
+    public double calcolaMediaRecensioni() {
+        double somma = 0;
+        
+        for(int i = 0; i < recensioni.size(); i++ ){
+            somma = somma + recensioni.get(i).getVote(); 
+        }
+        return somma / recensioni.size();
+    }
+    
+    public int NumeroRecensioni(){
+        return recensioni.size();
+    }
+    public boolean haServizio(String servizio){
+        
+        for (int i = 0; i < servizi.size(); i++){
+            if(servizio.equals(servizi.get(i))) return true;
+        }
+        return false;
+    }
+    
+    public void aggiungiServizio(String servizio){
+        servizi.add(servizio);
+    }
+    
+    public void rimuoviServizio(String servizio){
+        servizi.remove(servizio);
+    }
+    
+    public boolean soddisfaPrezzo(double maxPrezzo){
+        if(prezzo <= maxPrezzo) return true;
+        else return false;
+    }
+    
+    public boolean haNumeroCamere(int minCamere){
+        if(numeroCamere >= minCamere) return true;
+        else return false;
+    }
+    
+    
+    
 }

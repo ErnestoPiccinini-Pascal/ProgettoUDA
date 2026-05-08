@@ -34,11 +34,17 @@ public class Review {
     
 
     
-    public boolean findWord(){
+    public boolean findWord(String serchedWord){
+        String words[] = comments.split(" ");
+        
+        for(String w : words){
+            if(w.equals(serchedWord)) return true;
+        } 
         return false;
     }
     public boolean isPositive(){
-        return true;
+        if(vote >= 3)return true;
+        else return false;
     }
 
 }
