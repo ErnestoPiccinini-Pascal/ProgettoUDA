@@ -19,7 +19,7 @@ public class Seller extends User {
         super(username, password);
     }
 
-    public ArrayList<Housing> getAlloggiGestiti() {}
+    //public ArrayList<Housing> getAlloggiGestiti() {}
 
     public void aggiungiAlloggio(Housing a) {}
 

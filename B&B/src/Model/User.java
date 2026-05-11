@@ -21,5 +21,5 @@ public class User {
     public String getPassword(){
         return password;
     }
-    public boolean registrazione(){}
+   //public boolean registrazione(){}
 }

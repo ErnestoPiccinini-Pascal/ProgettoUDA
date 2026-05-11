@@ -14,11 +14,11 @@ import java.util.ArrayList;
  */
 public class CsvManager {
 
-    public ArrayList<Housing> caricaAlloggi(String path) {}
+    //public ArrayList<Housing> caricaAlloggi(String path) {}
 
     public void salvaAlloggi(String path, ArrayList<Housing> lista) {}
 
-    public ArrayList<Booking> caricaPrenotazioni(String path) {}
+    //public ArrayList<Booking> caricaPrenotazioni(String path) {}
 
     public void salvaPrenotazioni(String path, ArrayList<Booking> lista) {}
 }

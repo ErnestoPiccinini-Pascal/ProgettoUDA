@@ -15,6 +15,7 @@ public class BuyerLogin extends javax.swing.JFrame {
      */
     public BuyerLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

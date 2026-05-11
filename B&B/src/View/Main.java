@@ -30,18 +30,18 @@ public class Main {
         servizi.add("wifi");
         servizi.add("cucina");
 
-        Housing a = new Housing("Casa Bella", "Roma", 3, 80.0, servizi, "appartamento");
-        gestore.aggiungiAlloggio(a);
+        //Housing a = new Housing("Casa Bella", "Roma", 3, 80.0, servizi, "appartamento");
+        //gestore.aggiungiAlloggio(a);
 
         // RICERCA
-        List<Housing> risultati = gestore.cercaPerLocalita("Roma");
+        //List<Housing> risultati = gestore.cercaPerLocalita("Roma");
 
         // PRENOTAZIONE
-        boolean esito = gestore.prenota("mario", "Casa Bella", 10, 15);
+        //boolean esito = gestore.prenota("mario", "Casa Bella", 10, 15);
 
         // RECENSIONE
         Review r = new Review("mario", 5, "Bellissimo!");
-        gestore.aggiungiRecensione("Casa Bella", r);
+        //gestore.aggiungiRecensione("Casa Bella", r);
 
         // SALVATAGGIO
         gestore.salvaDatabase("alloggi.csv", "prenotazioni.csv");

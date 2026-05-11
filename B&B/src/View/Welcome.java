@@ -4,19 +4,22 @@
  */
 package View;
 
+import java.awt.Color;
+
 /**
  *
  * @author franc
  */
-public class GUI extends javax.swing.JFrame {
+public class Welcome extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Welcome.class.getName());
 
     /**
      * Creates new form GUI
      */
-    public GUI() {
+    public Welcome() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -42,7 +45,7 @@ public class GUI extends javax.swing.JFrame {
 
         Welcome.setBackground(new java.awt.Color(255, 255, 255));
 
-        WelcomeTitle.setBackground(new java.awt.Color(59, 66, 153));
+        WelcomeTitle.setBackground(new java.awt.Color(159, 173, 244));
 
         jLabel1.setFont(new java.awt.Font("Lato Semibold", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -53,19 +56,19 @@ public class GUI extends javax.swing.JFrame {
         WelcomeTitleLayout.setHorizontalGroup(
             WelcomeTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WelcomeTitleLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addGap(99, 99, 99)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         WelcomeTitleLayout.setVerticalGroup(
             WelcomeTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(WelcomeTitleLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WelcomeTitleLayout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
-        WelcomeBuyer.setBackground(new java.awt.Color(204, 204, 255));
+        WelcomeBuyer.setBackground(new java.awt.Color(229, 229, 255));
 
         BuyerLoginButton.setBackground(new java.awt.Color(51, 255, 0));
         BuyerLoginButton.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
@@ -110,7 +113,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        WelcomeVendor.setBackground(new java.awt.Color(204, 204, 255));
+        WelcomeVendor.setBackground(new java.awt.Color(229, 229, 255));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Lato Semibold", 1, 24)); // NOI18N
@@ -121,6 +124,14 @@ public class GUI extends javax.swing.JFrame {
         VendorLoginButton.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
         VendorLoginButton.setText("Login");
         VendorLoginButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        VendorLoginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                VendorLoginButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                VendorLoginButtonMouseExited(evt);
+            }
+        });
         VendorLoginButton.addActionListener(this::VendorLoginButtonActionPerformed);
 
         javax.swing.GroupLayout WelcomeVendorLayout = new javax.swing.GroupLayout(WelcomeVendor);
@@ -191,23 +202,39 @@ public class GUI extends javax.swing.JFrame {
 
     private void VendorLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VendorLoginButtonActionPerformed
         // TODO add your handling code here:
+        VendorLogin login = new VendorLogin();
+        login.setVisible(true);
+
+        this.dispose();
     }//GEN-LAST:event_VendorLoginButtonActionPerformed
 
     private void BuyerLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyerLoginButtonActionPerformed
         // TODO add your handling code here:
-        BuyerHome home = new BuyerHome();
-        home.setVisible(true);
+        BuyerLogin login = new BuyerLogin();
+        login.setVisible(true);
 
         this.dispose();
     }//GEN-LAST:event_BuyerLoginButtonActionPerformed
 
     private void BuyerLoginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuyerLoginButtonMouseExited
         // TODO add your handling code here:
+        BuyerLoginButton.setBackground(new Color(51, 255, 0));
     }//GEN-LAST:event_BuyerLoginButtonMouseExited
 
     private void BuyerLoginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuyerLoginButtonMouseEntered
         // TODO add your handling code here
+        BuyerLoginButton.setBackground(new Color(237, 237, 121));
     }//GEN-LAST:event_BuyerLoginButtonMouseEntered
+
+    private void VendorLoginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VendorLoginButtonMouseEntered
+        // TODO add your handling code here:
+        VendorLoginButton.setBackground(new Color(121, 190, 237));
+    }//GEN-LAST:event_VendorLoginButtonMouseEntered
+
+    private void VendorLoginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VendorLoginButtonMouseExited
+        // TODO add your handling code here:
+        VendorLoginButton.setBackground(new Color(51, 255, 0));
+    }//GEN-LAST:event_VendorLoginButtonMouseExited
 
     /**
      * @param args the command line arguments
@@ -231,7 +258,7 @@ public class GUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new GUI().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Welcome().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

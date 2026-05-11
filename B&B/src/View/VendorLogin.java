@@ -15,6 +15,7 @@ public class VendorLogin extends javax.swing.JFrame {
      */
     public VendorLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

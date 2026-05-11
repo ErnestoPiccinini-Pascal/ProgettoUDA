@@ -20,7 +20,7 @@ public class Client extends User {
         super(username, password);
     }
 
-    public ArrayList<Booking> getPrenotazioni() {}
+    //public ArrayList<Booking> getPrenotazioni() {}
 
     public void lasciaRecensione(Housing a, Review r) {}
     

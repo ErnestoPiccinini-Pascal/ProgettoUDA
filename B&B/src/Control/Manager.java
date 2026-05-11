@@ -28,21 +28,21 @@ public class Manager {
     // =====================
     //  RICERCA (CLIENTE)
     // =====================
-    public ArrayList<Housing> cercaPerLocalita(String localita) {}
+    //public ArrayList<Housing> cercaPerLocalita(String localita) {}
 
-    public ArrayList<Housing> cercaPerPrezzo(double maxPrezzo) {}
+    //public ArrayList<Housing> cercaPerPrezzo(double maxPrezzo) {}
 
-    public ArrayList<Housing> cercaPerServizio(String servizio) {}
+    //public ArrayList<Housing> cercaPerServizio(String servizio) {}
 
     // =====================
     // 🛏️ PRENOTAZIONE
     // =====================
-    public boolean prenota(String username, String nomeAlloggio,int giornoInizio, int giornoFine) {}
+    //public boolean prenota(String username, String nomeAlloggio,int giornoInizio, int giornoFine) {}
 
     // =====================
     // ⭐ RECENSIONI
     // =====================
-    public void aggiungiRecensione(String nomeAlloggio, Recensione r) {}
+    //public void aggiungiRecensione(String nomeAlloggio, Recensione r) {}
 
     // =====================
     // 🧑‍💼 CRUD VENDITORE
@@ -53,10 +53,10 @@ public class Manager {
 
     public void modificaAlloggio(String nome, Housing nuovo) {}
 
-    public ArrayList<Housing> getAlloggi() {}
+    //public ArrayList<Housing> getAlloggi() {}
 
     // =====================
     // EXTRA
     // =====================
-    public Housing trovaAlloggioPerNome(String nome) {}
+    //public Housing trovaAlloggioPerNome(String nome) {}
 }
