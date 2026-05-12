@@ -45,7 +45,7 @@ public class Welcome extends javax.swing.JFrame {
 
         Welcome.setBackground(new java.awt.Color(255, 255, 255));
 
-        WelcomeTitle.setBackground(new java.awt.Color(159, 173, 244));
+        WelcomeTitle.setBackground(new java.awt.Color(195, 203, 244));
 
         jLabel1.setFont(new java.awt.Font("Lato Semibold", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,7 +68,7 @@ public class Welcome extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
         );
 
-        WelcomeBuyer.setBackground(new java.awt.Color(229, 229, 255));
+        WelcomeBuyer.setBackground(new java.awt.Color(239, 239, 255));
 
         BuyerLoginButton.setBackground(new java.awt.Color(51, 255, 0));
         BuyerLoginButton.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
@@ -113,7 +113,7 @@ public class Welcome extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        WelcomeVendor.setBackground(new java.awt.Color(229, 229, 255));
+        WelcomeVendor.setBackground(new java.awt.Color(239, 239, 255));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Lato Semibold", 1, 24)); // NOI18N
@@ -223,12 +223,12 @@ public class Welcome extends javax.swing.JFrame {
 
     private void BuyerLoginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuyerLoginButtonMouseEntered
         // TODO add your handling code here
-        BuyerLoginButton.setBackground(new Color(237, 237, 121));
+        BuyerLoginButton.setBackground(new Color(237, 227, 63));
     }//GEN-LAST:event_BuyerLoginButtonMouseEntered
 
     private void VendorLoginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VendorLoginButtonMouseEntered
         // TODO add your handling code here:
-        VendorLoginButton.setBackground(new Color(121, 190, 237));
+        VendorLoginButton.setBackground(new Color(121, 128, 238));
     }//GEN-LAST:event_VendorLoginButtonMouseEntered
 
     private void VendorLoginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VendorLoginButtonMouseExited

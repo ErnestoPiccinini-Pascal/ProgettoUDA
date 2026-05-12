@@ -79,7 +79,7 @@
         <Container class="javax.swing.JPanel" name="WelcomeTitle">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f4" green="ad" red="9f" type="rgb"/>
+              <Color blue="f4" green="cb" red="c3" type="rgb"/>
             </Property>
           </Properties>
 
@@ -120,7 +120,7 @@
         <Container class="javax.swing.JPanel" name="WelcomeBuyer">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="e5" red="e5" type="rgb"/>
+              <Color blue="ff" green="ef" red="ef" type="rgb"/>
             </Property>
           </Properties>
 
@@ -197,7 +197,7 @@
         <Container class="javax.swing.JPanel" name="WelcomeVendor">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="e5" red="e5" type="rgb"/>
+              <Color blue="ff" green="ef" red="ef" type="rgb"/>
             </Property>
           </Properties>
 

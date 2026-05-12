@@ -15,6 +15,7 @@ public class VendorHome extends javax.swing.JFrame {
      */
     public VendorHome() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
