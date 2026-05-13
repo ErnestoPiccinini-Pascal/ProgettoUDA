@@ -18,18 +18,22 @@ public class Housing {
     private double prezzo;
     private ArrayList<String> servizi;
     private String tipoAlloggio;
-    private boolean[] disponibilita; // 365 giorni
+    private ArrayList<String> dateDisponibili;
     private ArrayList<Review> recensioni;
+    private String proprietario;
 
-    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, boolean[] disponibilita, ArrayList<Review> recensioni) {
+    private ArrayList<Boolean> disponibilita; // 365 giorni
+    
+    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, ArrayList<String> dateDisponibili, ArrayList<Review> recensioni, String proprietario) {
         this.nome = nome;
         this.localita = localita;
         this.numeroCamere = numeroCamere;
         this.prezzo = prezzo;
         this.servizi = servizi;
         this.tipoAlloggio = tipoAlloggio;
-        this.disponibilita = disponibilita;
+        this.dateDisponibili = dateDisponibili;
         this.recensioni = recensioni;
+        this.proprietario = proprietario;
     }
 
     // GETTER
@@ -58,14 +62,23 @@ public class Housing {
         return tipoAlloggio;
     }
 
-    public boolean[] getDisponibilita() {
-        return disponibilita;
+    public ArrayList<String> getDateDisponibili() {
+        return dateDisponibili;
     }
 
     public ArrayList<Review> getRecensioni() {
         return recensioni;
     }
 
+    public String getProprietario() {
+        return proprietario;
+    }
+
+    public ArrayList<Boolean> getDisponibilita() {
+        return disponibilita;
+    }
+
+   
     // SETTER
 
     public void setNome(String nome) {
@@ -92,20 +105,27 @@ public class Housing {
         this.tipoAlloggio = tipoAlloggio;
     }
 
-    public void setDisponibilita(boolean[] disponibilita) {
-        this.disponibilita = disponibilita;
+    public void setDateDisponibili(ArrayList<String> dateDisponibili) {
+        this.dateDisponibili = dateDisponibili;
     }
 
     public void setRecensioni(ArrayList<Review> recensioni) {
         this.recensioni = recensioni;
     }
-    
+
+    public void setProprietario(String proprietario) {
+        this.proprietario = proprietario;
+    }
+
+    public void setDisponibilita(ArrayList<Boolean> disponibilita) {
+        this.disponibilita = disponibilita;
+    }
 
     // LOGICA
     public boolean verificaDisponibilita(int giornoInizio, int giornoFine) {
     
         for(int i = giornoInizio; i < giornoFine; i++ ){
-            if(disponibilita[i] == false) return false;
+            if(disponibilita.get(i) == false) return false;
         }
         return true;
     }

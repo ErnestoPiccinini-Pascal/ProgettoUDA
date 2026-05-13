@@ -54,10 +54,10 @@ public class Booking {
     
     public boolean book(int inizio,int fine){
         for(int i = inizio; i < fine ; i++){
-            if(alloggio.getDisponibilita()[i] == false) return false;
+            if(alloggio.getDisponibilita().get(i) == false) return false;
         }
         for(int i = inizio ; i < fine; i++){
-            alloggio.getDisponibilita()[i] = true;
+            alloggio.getDisponibilita().set(i, true);
         }
         return true;
     }
@@ -79,7 +79,7 @@ public class Booking {
     public boolean riduci(int giorniDaRidurre){
         int newLastDay = lastDay - giorniDaRidurre;
         for(int i = newLastDay; i < lastDay; i++){
-            alloggio.getDisponibilita()[i] = true;
+            alloggio.getDisponibilita().set(i, true);
         }
         lastDay = newLastDay;
         return true;
