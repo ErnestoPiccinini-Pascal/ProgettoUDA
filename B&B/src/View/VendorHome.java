@@ -23,7 +23,38 @@ public class VendorHome extends javax.swing.JFrame {
     public VendorHome() {
         initComponents();
         setLocationRelativeTo(null);
-        scegliFile();
+    }
+    
+    private void caricaTabella(ArrayList<String[]> dati) {
+
+        DefaultTableModel model = new DefaultTableModel();
+        String[] colonne = {
+            "Nome", "Località", "Camere", "Prezzo",
+            "Servizi", "Tipo", "Disponibilità", "Recensioni", "Proprietario"
+        };
+        model.setColumnIdentifiers(colonne);
+        for (String[] riga : dati) {
+            model.addRow(riga);
+        }
+        jTable1.setModel(model);
+    }
+    
+    private void apriSelectCSV() {
+
+        JFileChooser chooser = new JFileChooser();
+        int scelta = chooser.showOpenDialog(this);
+        if (scelta == JFileChooser.APPROVE_OPTION) {
+
+            File file = chooser.getSelectedFile();
+            CsvManager g = new CsvManager();
+            g.leggiCSV(file.getAbsolutePath());
+            ArrayList<String[]> dati = g.getDati();
+            caricaTabella(dati);
+
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Nessun file selezionato!");
+        }
     }
 
     /**
@@ -41,6 +72,7 @@ public class VendorHome extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +99,11 @@ public class VendorHome extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("salva");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("modifica");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,6 +116,13 @@ public class VendorHome extends javax.swing.JFrame {
 
         jButton4.setText("elimina");
 
+        jButton5.setText("Leggi");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,6 +131,8 @@ public class VendorHome extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)
@@ -107,7 +153,8 @@ public class VendorHome extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton5))
                 .addGap(115, 115, 115)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -120,30 +167,15 @@ public class VendorHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void scegliFile() {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        JFileChooser chooser = new JFileChooser();
-        int scelta = chooser.showOpenDialog(this);
-        
-        if(scelta != JFileChooser.APPROVE_OPTION) {
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        apriSelectCSV();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
-            JOptionPane.showMessageDialog(this, "Seleziona un CSV");
-
-            System.exit(0);
-        }
-
-        File file = chooser.getSelectedFile();
-        CsvManager g = new CsvManager();
-        g.leggiCSV(file.getAbsolutePath());
-        ArrayList<String[]> dati = g.getDati();
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(dati.get(0));
-
-        for(int i = 1; i < dati.size(); i++) {
-            model.addRow(dati.get(i));
-        }
-        jTable1.setModel(model);
-    }
     /**
      * @param args the command line arguments
      */
@@ -184,6 +216,7 @@ public class VendorHome extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

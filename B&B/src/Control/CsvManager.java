@@ -37,7 +37,7 @@ public class CsvManager {
 
             while((riga = br.readLine()) != null) {
 
-                String[] valori = riga.split(",");
+                String[] valori = riga.split(";");
 
                 dati.add(valori);
             }
