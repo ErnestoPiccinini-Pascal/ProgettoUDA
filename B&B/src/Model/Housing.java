@@ -5,6 +5,7 @@
 package Model;
 
 import java.util.ArrayList;
+import Control.Manager;
 
 /**
  *
@@ -21,7 +22,17 @@ public class Housing {
     private Boolean[] dateDisponibili;
     private ArrayList<Review> recensioni;
     private String proprietario;
-
+    @Override
+    public String toString() {
+        ArrayList<String> date=new ArrayList<>();
+        for(int i=0;i<365;i++){
+            if(!dateDisponibili[i]){
+                date.add(Manager.indiceaGiorno(i));
+            }
+        }
+        
+        return  nome+";"+localita+";"+numeroCamere+";"+prezzo+";"+Manager.toCSV(servizi)+";"+tipoAlloggio+";"+Manager.toCSV(date)+";"+Manager.toCSV(recensioni)+";"+proprietario;
+    }
     //private ArrayList<Boolean> disponibilita; // 365 giorni
     
     public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Review> recensioni, String proprietario) {

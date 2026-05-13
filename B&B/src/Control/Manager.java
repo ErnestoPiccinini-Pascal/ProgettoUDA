@@ -19,30 +19,47 @@ public class Manager {
     private ArrayList<Housing> alloggi;
     private ArrayList<Booking> prenotazioni;
     private CsvManager csvManager;
-    private int annoCorrente=2026;
+    private static int annoCorrente=2026;
     public Manager() {}
-    private ArrayList<Integer> mesi = new ArrayList<>(
+    private static ArrayList<Integer> mesi = new ArrayList<>(
         Arrays.asList(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
     );
     // FILE
-    public void caricaDatabase(String pathAlloggi, String pathPrenotazioni) {}
+    //public void caricaDatabase(String pathAlloggi, String pathPrenotazioni) {}
 
-    public void salvaDatabase(String pathAlloggi, String pathPrenotazioni) {}
+   // public void salvaDatabase(String pathAlloggi, String pathPrenotazioni) {}
     public int giornoaIndice(String giorno){
         String[] tokens=giorno.split("/");
         int somma=Integer.parseInt(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
         return somma;
     }
-    public String indiceaGiorno (int indice){
+     static public String indiceaGiorno (int indice){
         String mese;
         int i;
-        for(i=11;i>-1;i--){
+        for(i=11;i>0;i--){
             if(mesi.get(i)<indice){
                 break;
             }
         }
-        return indice-mesi.get(i)+"/"+i+"/"+annoCorrente;
+        return (1+indice-mesi.get(i))+"/"+(i+1)+"/"+annoCorrente;
         
+    }
+     public static <T> String toCSV(ArrayList<T> list) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{");
+
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i));
+
+            if (i < list.size() - 1) {
+                sb.append(",");
+            }
+        }
+
+        sb.append("}");
+
+        return sb.toString();
     }
     // =====================
     //  RICERCA (CLIENTE)

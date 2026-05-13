@@ -3,6 +3,7 @@ package View;
 import Control.Manager;
 import Model.Housing;
 import Model.Review;
+import Control.CsvManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Main {
         Manager gestore = new Manager();
 
         // CARICAMENTO DATI
-        gestore.caricaDatabase("alloggi.csv", "prenotazioni.csv");
+        
 
         // CREAZIONE ALLOGGIO
         List<String> servizi = new ArrayList<>();
@@ -42,9 +43,15 @@ public class Main {
         // RECENSIONE
         Review r = new Review("mario", 5, "Bellissimo!");
         //gestore.aggiungiRecensione("Casa Bella", r);
-
+        CsvManager e=new CsvManager();
+        //ArrayList<Housing> j= e.caricaAlloggi("disponibilita.csv");
+        e.leggiCSV("disponibilita.csv");
+        e.salva("Salva.csv");
+        //System.out.println(j.get(0).toString());
+        
+        
         // SALVATAGGIO
-        gestore.salvaDatabase("alloggi.csv", "prenotazioni.csv");
+       // gestore.salvaDatabase("alloggi.csv", "prenotazioni.csv");
 
         System.out.println("Test completato.");
     }

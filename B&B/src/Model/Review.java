@@ -26,6 +26,11 @@ public class Review {
         return comments;
     }
 
+    @Override
+    public String toString() {
+        return "{" +author+ "," + vote + "," + comments + '}';
+    }
+
     public Review(String author, int vote, String comments) {
         this.author = author;
         this.vote = vote;
