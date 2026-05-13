@@ -17,6 +17,8 @@ public class Edit extends javax.swing.JFrame {
      */
     public Edit() {
         initComponents();
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(new java.awt.Color(255, 255, 255));
     }
 
     /**
@@ -47,6 +49,8 @@ public class Edit extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jList1.setBackground(new java.awt.Color(213, 227, 237));
+        jList1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -54,13 +58,21 @@ public class Edit extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
+        jTextField1.setBackground(new java.awt.Color(213, 227, 237));
+        jTextField1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jTextField1.setText("jTextField1");
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
+        jTextField2.setBackground(new java.awt.Color(213, 227, 237));
+        jTextField2.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jTextField2.setText("jTextField2");
 
+        jTextField3.setBackground(new java.awt.Color(213, 227, 237));
+        jTextField3.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jTextField3.setText("jTextField3");
 
+        jList2.setBackground(new java.awt.Color(213, 227, 237));
+        jList2.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -68,22 +80,33 @@ public class Edit extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jList2);
 
+        jTextField4.setBackground(new java.awt.Color(213, 227, 237));
+        jTextField4.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jTextField4.setText("jTextField4");
 
+        jLabel1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel1.setText("Name");
 
+        jLabel2.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel2.setText("Location");
 
+        jLabel3.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel3.setText("Rooms");
 
+        jLabel4.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel4.setText("Price");
 
+        jTextField5.setBackground(new java.awt.Color(213, 227, 237));
+        jTextField5.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jTextField5.setText("jTextField4");
 
+        jLabel5.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel5.setText("Type of accommodation");
 
+        jLabel6.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel6.setText("Services");
 
+        jLabel7.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel7.setText("Availability");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,7 +170,7 @@ public class Edit extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
