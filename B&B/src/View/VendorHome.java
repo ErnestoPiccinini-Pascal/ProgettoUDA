@@ -23,6 +23,24 @@ public class VendorHome extends javax.swing.JFrame {
     public VendorHome() {
         initComponents();
         setLocationRelativeTo(null);
+        getContentPane().setBackground(new java.awt.Color(255, 255, 255));
+        
+        jTable1.getTableHeader().setOpaque(true);
+        jTable1.getTableHeader().setBackground(new java.awt.Color(121, 128, 238));
+        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+        
+        // linee tabella
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(new java.awt.Color(200,200,200));
+
+        // sfondo scrollpane
+        jScrollPane1.getViewport().setBackground(java.awt.Color.WHITE);
+        
+        // bordo scrollpane
+        jScrollPane1.setBorder(null);
+        
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+
     }
     
     private void caricaTabella(ArrayList<String[]> dati) {
@@ -56,6 +74,56 @@ public class VendorHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nessun file selezionato!");
         }
     }
+    
+    private void eliminaRiga() {
+
+        int riga = jTable1.getSelectedRow();
+
+        if (riga == -1) {
+            JOptionPane.showMessageDialog(this, "Seleziona una riga!");
+            return;
+        }
+
+        // recupero dati riga selezionata
+        String nome = jTable1.getValueAt(riga, 0).toString();
+
+        // chiamata funzione eliminazione
+        CsvManager g = new CsvManager();
+        g.eliminaElemento(nome);
+
+        // eliminazione grafica dalla tabella
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.removeRow(riga);
+
+        JOptionPane.showMessageDialog(this, "Elemento eliminato!");
+    }
+    
+    private void modificaRiga() {
+        int riga = jTable1.getSelectedRow();
+
+        if (riga == -1) {
+            JOptionPane.showMessageDialog(this, "Seleziona una riga!");
+            return;
+        }
+
+        String nome = jTable1.getValueAt(riga, 0).toString();
+
+        //apertura della casella di input
+        
+        
+        CsvManager g = new CsvManager();
+        g.modificaElemento(nome);
+
+        JOptionPane.showMessageDialog(this, "Modifica eseguita!");
+    }
+    
+    private void salvaCSV() {
+
+        CsvManager g = new CsvManager();
+        g.salvaCSV();
+
+        JOptionPane.showMessageDialog(this, "CSV salvato!");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,14 +136,25 @@ public class VendorHome extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        Open = new javax.swing.JMenuItem();
+        Save = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        Insert = new javax.swing.JMenuItem();
+        Delete = new javax.swing.JMenuItem();
+        EditText = new javax.swing.JMenuItem();
+        Info = new javax.swing.JMenu();
+        About = new javax.swing.JMenuItem();
+        Credits = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable1.setBackground(new java.awt.Color(213, 227, 237));
+        jTable1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -96,85 +175,156 @@ public class VendorHome extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.setGridColor(new java.awt.Color(44, 15, 130));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("salva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBackground(new java.awt.Color(121, 128, 238));
+
+        jLabel2.setBackground(new java.awt.Color(237, 213, 121));
+        jLabel2.setFont(new java.awt.Font("Lato Semibold", 0, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("BUB B&B");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(543, 543, 543)
+                .addComponent(jLabel2)
+                .addContainerGap(553, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        jMenu1.setText("File");
+        jMenu1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        Open.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        Open.setText("Open");
+        Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                OpenActionPerformed(evt);
             }
         });
+        jMenu1.add(Open);
 
-        jButton2.setText("modifica");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Save.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        Save.setText("Save");
+        Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                SaveActionPerformed(evt);
             }
         });
+        jMenu1.add(Save);
 
-        jButton3.setText("aggiungi");
-
-        jButton4.setText("elimina");
-
-        jButton5.setText("Leggi");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Exit.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        Exit.setText("Exit");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ExitActionPerformed(evt);
             }
         });
+        jMenu1.add(Exit);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenu2.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        Insert.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        Insert.setText("Insert");
+        jMenu2.add(Insert);
+
+        Delete.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        Delete.setText("Delete");
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(Delete);
+
+        EditText.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        EditText.setText("EditText");
+        EditText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditTextActionPerformed(evt);
+            }
+        });
+        jMenu2.add(EditText);
+
+        jMenuBar1.add(jMenu2);
+
+        Info.setText("Info");
+        Info.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        About.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        About.setText("About");
+        Info.add(About);
+
+        Credits.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        Credits.setText("Credits");
+        Info.add(Credits);
+
+        jMenuBar1.add(Info);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
-                        .addGap(7, 7, 7)
-                        .addComponent(jButton2)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jScrollPane1)
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton1)
-                    .addComponent(jButton5))
-                .addGap(115, 115, 115)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        VendorLogin login = new VendorLogin();
+        login.setVisible(true);
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_ExitActionPerformed
+
+    private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        eliminaRiga();
+    }//GEN-LAST:event_DeleteActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void EditTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditTextActionPerformed
+        // TODO add your handling code here:
+        modificaRiga();
+    }//GEN-LAST:event_EditTextActionPerformed
+
+    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+        // TODO add your handling code here:
+        salvaCSV();
+    }//GEN-LAST:event_SaveActionPerformed
+
+    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         // TODO add your handling code here:
         apriSelectCSV();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_OpenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,11 +362,20 @@ public class VendorHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JMenuItem About;
+    private javax.swing.JMenuItem Credits;
+    private javax.swing.JMenuItem Delete;
+    private javax.swing.JMenuItem EditText;
+    private javax.swing.JMenuItem Exit;
+    private javax.swing.JMenu Info;
+    private javax.swing.JMenuItem Insert;
+    private javax.swing.JMenuItem Open;
+    private javax.swing.JMenuItem Save;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

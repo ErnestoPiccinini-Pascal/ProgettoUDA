@@ -101,6 +101,11 @@ public class VendorLogin extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(213, 227, 237));
         jTextField1.setFont(new java.awt.Font("Lato Semibold", 0, 14)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         Back.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         Back.setText("<- Back");
@@ -267,6 +272,10 @@ public class VendorLogin extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_LoginActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
