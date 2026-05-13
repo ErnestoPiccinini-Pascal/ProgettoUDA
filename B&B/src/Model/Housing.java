@@ -18,13 +18,13 @@ public class Housing {
     private double prezzo;
     private ArrayList<String> servizi;
     private String tipoAlloggio;
-    private ArrayList<String> dateDisponibili;
+    private Boolean[] dateDisponibili;
     private ArrayList<Review> recensioni;
     private String proprietario;
 
-    private ArrayList<Boolean> disponibilita; // 365 giorni
+    //private ArrayList<Boolean> disponibilita; // 365 giorni
     
-    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, ArrayList<String> dateDisponibili, ArrayList<Review> recensioni, String proprietario) {
+    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Review> recensioni, String proprietario) {
         this.nome = nome;
         this.localita = localita;
         this.numeroCamere = numeroCamere;
@@ -62,7 +62,7 @@ public class Housing {
         return tipoAlloggio;
     }
 
-    public ArrayList<String> getDateDisponibili() {
+    public Boolean[] getDateDisponibili() {
         return dateDisponibili;
     }
 
@@ -74,9 +74,9 @@ public class Housing {
         return proprietario;
     }
 
-    public ArrayList<Boolean> getDisponibilita() {
+    /*public ArrayList<Boolean> getDisponibilita() {
         return disponibilita;
-    }
+    }*/
 
    
     // SETTER
@@ -105,7 +105,7 @@ public class Housing {
         this.tipoAlloggio = tipoAlloggio;
     }
 
-    public void setDateDisponibili(ArrayList<String> dateDisponibili) {
+    public void setDateDisponibili(Boolean[] dateDisponibili) {
         this.dateDisponibili = dateDisponibili;
     }
 
@@ -117,15 +117,15 @@ public class Housing {
         this.proprietario = proprietario;
     }
 
-    public void setDisponibilita(ArrayList<Boolean> disponibilita) {
+    /*public void setDisponibilita(ArrayList<Boolean> disponibilita) {
         this.disponibilita = disponibilita;
-    }
+    }*/
 
     // LOGICA
     public boolean verificaDisponibilita(int giornoInizio, int giornoFine) {
     
         for(int i = giornoInizio; i < giornoFine; i++ ){
-            if(disponibilita.get(i) == false) return false;
+            if(dateDisponibili[i] == false) return false;
         }
         return true;
     }
