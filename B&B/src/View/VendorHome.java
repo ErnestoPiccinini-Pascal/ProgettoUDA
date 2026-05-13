@@ -4,6 +4,13 @@
  */
 package View;
 
+import Control.CsvManager;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author rauccin
@@ -16,6 +23,7 @@ public class VendorHome extends javax.swing.JFrame {
     public VendorHome() {
         initComponents();
         setLocationRelativeTo(null);
+        scegliFile();
     }
 
     /**
@@ -103,6 +111,30 @@ public class VendorHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void scegliFile() {
+
+        JFileChooser chooser = new JFileChooser();
+        int scelta = chooser.showOpenDialog(this);
+        
+        if(scelta != JFileChooser.APPROVE_OPTION) {
+
+            JOptionPane.showMessageDialog(this, "Seleziona un CSV");
+
+            System.exit(0);
+        }
+
+        File file = chooser.getSelectedFile();
+        CsvManager g = new CsvManager();
+        g.leggiCSV(file.getAbsolutePath());
+        ArrayList<String[]> dati = g.getDati();
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(dati.get(0));
+
+        for(int i = 1; i < dati.size(); i++) {
+            model.addRow(dati.get(i));
+        }
+        jTable1.setModel(model);
+    }
     /**
      * @param args the command line arguments
      */
