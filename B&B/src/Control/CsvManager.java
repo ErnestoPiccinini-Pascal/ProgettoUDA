@@ -23,11 +23,6 @@ import java.util.Arrays;
 public class CsvManager {
     private static ArrayList<String[]> datiAlloggi = new ArrayList<>();
     private static ArrayList<String[]> datiPrenotazioni = new ArrayList<>();
-    
-
-    
-    
-    
 
     public void leggiCSV(String percorso,ArrayList<String[]> dati) {
 

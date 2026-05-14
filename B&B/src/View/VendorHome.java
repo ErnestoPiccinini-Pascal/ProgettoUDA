@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VendorHome extends javax.swing.JFrame {
     private CsvManager g;
+    private String percorsoFile;
+    private ArrayList<String[]> dati;
     /**
      * Creates new form VendorHome
      */
@@ -28,7 +30,7 @@ public class VendorHome extends javax.swing.JFrame {
         
         jTable1.getTableHeader().setOpaque(true);
         jTable1.getTableHeader().setBackground(new java.awt.Color(121, 128, 238));
-        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+        jTable1.setRowHeight(30);
         
         // linee tabella
         jTable1.setShowGrid(true);
@@ -59,41 +61,42 @@ public class VendorHome extends javax.swing.JFrame {
     }
     
     private void apriSelectCSV() {
-
         JFileChooser chooser = new JFileChooser();
         int scelta = chooser.showOpenDialog(this);
+        
         if (scelta == JFileChooser.APPROVE_OPTION) {
-
+            
             File file = chooser.getSelectedFile();
-            g.leggiCSV(file.getAbsolutePath());
-            ArrayList<String[]> dati = g.getDati();
+            percorsoFile = file.getAbsolutePath();
+            dati = CsvManager.getDatiAlloggi();
+            g.leggiCSV(percorsoFile, dati);
             caricaTabella(dati);
-
-        } else {
-
-            JOptionPane.showMessageDialog(this, "Nessun file selezionato!");
+            
+        }else {
+            JOptionPane.showMessageDialog(this,"Nessun file selezionato!");
         }
     }
-    
+
     private void eliminaRiga() {
 
         int riga = jTable1.getSelectedRow();
-
-        if (riga == -1) {
-            JOptionPane.showMessageDialog(this, "Seleziona una riga!");
+        if (riga == -1) { 
+            JOptionPane.showMessageDialog(this,"Seleziona una riga!");
             return;
         }
-
-        g.delete(riga);
-
-        // eliminazione grafica dalla tabella
+        dati.remove(riga);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.removeRow(riga);
-
-        JOptionPane.showMessageDialog(this, "Elemento eliminato!");
+        JOptionPane.showMessageDialog(this,"Elemento eliminato!");
     }
     
     private void modificaRiga() {
+
+        if (dati == null) {
+            JOptionPane.showMessageDialog(this, "Carica prima un file CSV!");
+            return;
+        }
+
         int riga = jTable1.getSelectedRow();
 
         if (riga == -1) {
@@ -101,25 +104,29 @@ public class VendorHome extends javax.swing.JFrame {
             return;
         }
 
-        String nome = jTable1.getValueAt(riga, 0).toString();
+        String[] datiRiga = dati.get(riga);
 
-        //apertura della casella di input
-        
-        
-        CsvManager g = new CsvManager();
-        //g.modificaElemento(nome);
+        Edit e = new Edit(this, true);
+        e.setDati(datiRiga);
+        e.setVisible(true); 
 
-        JOptionPane.showMessageDialog(this, "Modifica eseguita!");
+        String[] aggiornato = e.getDatiAggiornati();
+
+        if (aggiornato != null) {
+            //aggiorno ArrayList
+            
+            dati.set(riga, aggiornato);
+            //aggiorno JTable SOLO quella riga
+            for (int i = 0; i < aggiornato.length; i++) {
+                jTable1.setValueAt(aggiornato[i], riga, i);
+            }
+        }
     }
     
     private void salvaCSV() {
-
-        CsvManager g = new CsvManager();
-        //g.salva();
-
-        JOptionPane.showMessageDialog(this, "CSV salvato!");
+        g.salva(percorsoFile, dati);
+        JOptionPane.showMessageDialog(this,"CSV salvato!");
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

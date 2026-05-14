@@ -32,7 +32,7 @@ public class Manager {
             
     private static int annoCorrente=2026;
     public void caricaAlloggi() {
-         alloggi=new ArrayList<>();
+        alloggi=new ArrayList<>();
         //0
         String nome;
         //1
