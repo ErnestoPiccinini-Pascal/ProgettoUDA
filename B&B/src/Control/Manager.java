@@ -6,8 +6,14 @@ package Control;
 
 import Model.Housing;
 import Model.Booking;
+import Model.Client;
+import Model.Review;
+import Model.Seller;
+import Model.User;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -16,11 +22,86 @@ import java.util.Arrays;
 
 public class Manager {
 
+
     private ArrayList<Housing> alloggi;
-    private ArrayList<Booking> prenotazioni;
-    private CsvManager csvManager;
+    private ArrayList<Client> clienti;
+  //  private ArrayList<String[]> dati=new ArrayList<>();
+    private ArrayList<Review> recensioniMaster=new ArrayList<>();
+    private Map<String, Seller> proprietari = new HashMap<>();
+    private CsvManager csv=new CsvManager();
+            
     private static int annoCorrente=2026;
-    public Manager() {}
+    public void caricaAlloggi() {
+         alloggi=new ArrayList<>();
+        //0
+        String nome;
+        //1
+        String localita;
+        //2
+        int numeroCamere;
+        //3
+        double prezzo;
+        //4
+        ArrayList<String> servizi;
+        //5
+        String tipoAlloggio;
+        //6
+        Boolean[] dateDisponibili;
+        //7
+        ArrayList<Review> recensioni;
+        //8
+        String proprietario;
+        //9
+        int  cod=0;
+            for(String[] riga:CsvManager.getDatiAlloggi()){
+                for(String x:riga){
+                    x.replace("\"","");
+                }
+                
+                String[] valori = riga;
+                nome=valori[0];
+                localita=valori[1];
+                numeroCamere=Integer.parseInt(valori[2]);
+                prezzo=Double.parseDouble(valori[3]);
+                valori[4]=valori[4].substring(1, valori[4].length()-2);
+                servizi=new ArrayList<>();
+                for(String x: valori[4].split(",")){
+                    servizi.add(x);
+                }
+                tipoAlloggio=valori[5];
+                dateDisponibili=new Boolean[365];
+                Arrays.fill(dateDisponibili, true);
+                valori[6]=valori[6].substring(2, valori[6].length()-2);
+                for(String x: valori[6].split(",")){
+                    dateDisponibili[this.giornoaIndice(x)]=false;
+                }
+                recensioni=new ArrayList<>();
+                valori[7]=valori[7].substring(2, valori[7].length()-2);
+                System.out.println(valori[7]);
+                String[] valtotrec=valori[7].split("\\|");
+                System.out.println(valtotrec[0]);
+                for(String x: valtotrec){
+                    
+                    String[] valrec=x.split(",");
+                    Review g=new Review(valrec[0],Integer.parseInt(valrec[1]),valrec[2]);
+                    recensioni.add(g);
+                    recensioniMaster.add(g);
+                }
+                
+                proprietario=valori[8];
+                alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
+                if(proprietari.get(proprietario).equals(null)){
+                    proprietari.put(proprietario, new Seller(null,"",""));
+                }
+                proprietari.get(proprietario).aggiungiAlloggio(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
+                cod++;
+                
+            }
+            
+    }
+    
+    public Manager() throws Exception {
+    }
     private static ArrayList<Integer> mesi = new ArrayList<>(
         Arrays.asList(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
     );
@@ -61,38 +142,55 @@ public class Manager {
 
         return sb.toString();
     }
-    // =====================
-    //  RICERCA (CLIENTE)
-    // =====================
-    //public ArrayList<Housing> cercaPerLocalita(String localita) {}
-
-    //public ArrayList<Housing> cercaPerPrezzo(double maxPrezzo) {}
-
-    //public ArrayList<Housing> cercaPerServizio(String servizio) {}
-
-    // =====================
-    // 🛏️ PRENOTAZIONE
-    // =====================
-    //public boolean prenota(String username, String nomeAlloggio,int giornoInizio, int giornoFine) {}
-
-    // =====================
-    // ⭐ RECENSIONI
-    // =====================
-    //public void aggiungiRecensione(String nomeAlloggio, Recensione r) {}
-
-    // =====================
-    // 🧑‍💼 CRUD VENDITORE
-    // =====================
-    public void aggiungiAlloggio(Housing a) {}
+    public ArrayList<Housing> ricercaperLocalità(String Località){
+        ArrayList<Housing> posti=new ArrayList<>();
+        posti=null;
+        for(Housing x:alloggi){
+            if(x.getLocalita().equals(Località)){
+               posti.add(x);
+            }
+        }return posti;
+    }
+    public ArrayList<Housing> ricercaperPrezzoMin(Double prezzo){
+        ArrayList<Housing> posti=new ArrayList<>();
+        posti=null;
+        for(Housing x:alloggi){
+            if(x.soddisfaPrezzo(prezzo)){
+               posti.add(x);
+            }
+        }return posti;
+    }
+    public ArrayList<Housing> ricercaperServizio(String servizio){
+        ArrayList<Housing> posti=new ArrayList<>();
+        posti=null;
+        for(Housing x:alloggi){
+            if(x.haServizio(servizio)){
+                posti.add(x);
+            }
+        }return posti;
+    }
+    public ArrayList<Housing> ricercapernCamere(int numero){
+        ArrayList<Housing> posti=new ArrayList<>();
+        posti=null;
+        for(Housing x:alloggi){
+            if(x.haNumeroCamere(numero)){
+                posti.add(x);
+            }
+        }return posti;
+    }
+    public ArrayList<Housing> ricercaperProprietario(String p){
+     return proprietari.get(p).getAlloggiGestiti();
+    }
+    public boolean creaPrenotazione(Client prenotante, String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
+       return prenotante.prenota(userName, housingName, firstDay, lastDay, price, h);
+       
+    }
+    public void aggiungiAlloggio(Housing a) {
+    }
 
     public void rimuoviAlloggio(String nome) {}
 
     public void modificaAlloggio(String nome, Housing nuovo) {}
 
-    //public ArrayList<Housing> getAlloggi() {}
 
-    // =====================
-    // EXTRA
-    // =====================
-    //public Housing trovaAlloggioPerNome(String nome) {}
 }

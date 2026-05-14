@@ -6,6 +6,8 @@ import Model.Review;
 import Control.CsvManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,9 +23,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Manager gestore = new Manager();
-
-        // CARICAMENTO DATI
+        try {
+            Manager gestore = new Manager();
+            
+            // CARICAMENTO DATI
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 
         // CREAZIONE ALLOGGIO
@@ -45,8 +51,8 @@ public class Main {
         //gestore.aggiungiRecensione("Casa Bella", r);
         CsvManager e=new CsvManager();
         //ArrayList<Housing> j= e.caricaAlloggi("disponibilita.csv");
-        e.leggiCSV("disponibilita.csv");
-        e.salva("Salva.csv");
+        e.leggiCSV("disponibilita.csv",CsvManager.getDatiAlloggi());
+        e.salva("Salva.csv",CsvManager.getDatiAlloggi());
         //System.out.println(j.get(0).toString());
         
         

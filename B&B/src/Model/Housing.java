@@ -22,6 +22,7 @@ public class Housing {
     private Boolean[] dateDisponibili;
     private ArrayList<Review> recensioni;
     private String proprietario;
+    private int cod;
     @Override
     public String toString() {
         ArrayList<String> date=new ArrayList<>();
@@ -35,7 +36,7 @@ public class Housing {
     }
     //private ArrayList<Boolean> disponibilita; // 365 giorni
     
-    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Review> recensioni, String proprietario) {
+    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Review> recensioni, String proprietario, int cod) {
         this.nome = nome;
         this.localita = localita;
         this.numeroCamere = numeroCamere;
@@ -45,6 +46,7 @@ public class Housing {
         this.dateDisponibili = dateDisponibili;
         this.recensioni = recensioni;
         this.proprietario = proprietario;
+        this.cod = cod;
     }
 
     // GETTER
