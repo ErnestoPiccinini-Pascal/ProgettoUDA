@@ -143,12 +143,14 @@ public class CsvManager {
 
         }
     }
-    public void delete(String hotel){
+    public void delete(int indice){
+        /* 
         for(String[] x: dati){
             if(x[0]==hotel){
                 dati.remove(x);
                 break;
             }
         }
+        */
     }
 }

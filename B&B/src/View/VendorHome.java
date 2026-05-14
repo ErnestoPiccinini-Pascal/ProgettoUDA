@@ -16,12 +16,13 @@ import javax.swing.table.DefaultTableModel;
  * @author rauccin
  */
 public class VendorHome extends javax.swing.JFrame {
-
+    private CsvManager g;
     /**
      * Creates new form VendorHome
      */
     public VendorHome() {
         initComponents();
+        g = new CsvManager();
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
         
@@ -64,7 +65,6 @@ public class VendorHome extends javax.swing.JFrame {
         if (scelta == JFileChooser.APPROVE_OPTION) {
 
             File file = chooser.getSelectedFile();
-            CsvManager g = new CsvManager();
             g.leggiCSV(file.getAbsolutePath());
             ArrayList<String[]> dati = g.getDati();
             caricaTabella(dati);
@@ -84,12 +84,7 @@ public class VendorHome extends javax.swing.JFrame {
             return;
         }
 
-        // recupero dati riga selezionata
-        String nome = jTable1.getValueAt(riga, 0).toString();
-
-        // chiamata funzione eliminazione
-        CsvManager g = new CsvManager();
-        g.eliminaElemento(nome);
+        g.delete(riga);
 
         // eliminazione grafica dalla tabella
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -112,7 +107,7 @@ public class VendorHome extends javax.swing.JFrame {
         
         
         CsvManager g = new CsvManager();
-        g.modificaElemento(nome);
+        //g.modificaElemento(nome);
 
         JOptionPane.showMessageDialog(this, "Modifica eseguita!");
     }
@@ -120,7 +115,7 @@ public class VendorHome extends javax.swing.JFrame {
     private void salvaCSV() {
 
         CsvManager g = new CsvManager();
-        g.salvaCSV();
+        //g.salva();
 
         JOptionPane.showMessageDialog(this, "CSV salvato!");
     }
