@@ -23,9 +23,12 @@ public class Manager {
 
 
     private ArrayList<Housing> alloggi;
-    private ArrayList<Client> clienti;
   //  private ArrayList<String[]> dati=new ArrayList<>();
+    
+    private ArrayList<User> Registrati=new ArrayList<>();
+
     private Map<String, Seller> proprietari = new HashMap<>();
+    private Map<String, Client> clienti = new HashMap<>();
     private CsvManager csv=new CsvManager();
             
     private static int annoCorrente=2026;
@@ -177,6 +180,16 @@ public class Manager {
     public boolean creaPrenotazione(Client prenotante, String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
        return prenotante.prenota(userName, housingName, firstDay, lastDay, price, h);
        
+    }
+    
+    public void caricaRegistrati(String path){
+        CsvManager.leggiCSV(path, CsvManager.getDatiRegistrati());
+        for(String[] x:CsvManager.getDatiRegistrati()){
+             proprietari.put(x[0], new Seller(null, x[1],x[2]));
+        }
+    }
+    public void delete(int indice){
+        
     }
     public void aggiungiAlloggio(Housing a) {
     }
