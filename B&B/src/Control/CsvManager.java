@@ -8,6 +8,7 @@ import Model.Housing;
 import Model.Booking;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,9 +27,9 @@ import java.util.Map;
 public class CsvManager {
     private static ArrayList<String[]> datiAlloggi = new ArrayList<>();
     private static ArrayList<String[]> datiPrenotazioni = new ArrayList<>();
-    private static ArrayList<String[]> datiRegistrati = new ArrayList<>();
+    private static Map<String, String> datiRegistrati = new HashMap<>();
 
-    public static ArrayList<String[]> getDatiRegistrati() {
+    public static  Map<String, String> getDatiRegistrati() {
         return datiRegistrati;
     }
     
@@ -56,26 +59,35 @@ public class CsvManager {
         return dati;
     }
     public void salva(String path,ArrayList<String[]> dati){
-        String nomeFile = path;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeFile))) {
-        for(String[] x:dati){
-           for(String y:x){
-               writer.write(y+";");
-           }
-           writer.newLine();
+        Map<String, String> users = new HashMap<>();
+
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader("config.ini"));
+             String line;
+            while ((line = br.readLine()) != null) {
+            line = line.trim();
+
+            if (line.isEmpty() || line.startsWith("[")) continue;
+
+            String[] parts = line.split("=");
+
+            if (parts.length == 2) {
+                String user = parts[0].trim();
+                String pass = parts[1].trim();
+
+                users.put(user, pass);
+            }
         }
+        } catch (Exception ex) {
+            Logger.getLogger(CsvManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+     
+
         
-        // per andare a capo
-
-        }
-
-        catch (IOException e) {
-
-        // error caught instructions
-
-        }
     }
-    public static Map<String, String> load(String path)  {
+    public static void load(String path)  {
         Map<String, String> config = new HashMap<>();
         try{
             BufferedReader br = new BufferedReader(new FileReader(path));
@@ -97,7 +109,7 @@ public class CsvManager {
         }catch(Exception e){
             config=null;
         }
-        return config;
+        datiRegistrati=config;
     }
     public static ArrayList<String[]> getDatiAlloggi() {
         return datiAlloggi;

@@ -6,6 +6,7 @@ import Control.CsvManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,7 +58,9 @@ public class Main {
                 
        // e.salva("Salva.csv",CsvManager.getDatiAlloggi());
         //System.out.println(j.get(0).toString());
-        
+        gestore.caricaRegistrati("config.ini");
+        Map<String,String> reg=gestore.getRegistrati();
+        System.out.println(reg.get(0)+" "+reg.get(1));
         
         // SALVATAGGIO
        // gestore.salvaDatabase("alloggi.csv", "prenotazioni.csv");

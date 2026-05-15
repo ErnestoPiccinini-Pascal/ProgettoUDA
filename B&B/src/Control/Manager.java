@@ -25,7 +25,7 @@ public class Manager {
     private ArrayList<Housing> alloggi;
   //  private ArrayList<String[]> dati=new ArrayList<>();
     
-    private ArrayList<User> Registrati=new ArrayList<>();
+    private Map<String,String> registrati=new HashMap<>();
 
     private Map<String, Seller> proprietari = new HashMap<>();
     private Map<String, Client> clienti = new HashMap<>();
@@ -183,13 +183,13 @@ public class Manager {
     }
     
     public void caricaRegistrati(String path){
-        CsvManager.leggiCSV(path, CsvManager.getDatiRegistrati());
-        for(String[] x:CsvManager.getDatiRegistrati()){
-             proprietari.put(x[0], new Seller(null, x[1],x[2]));
-        }
+        CsvManager.load(path);
+        registrati=CsvManager.getDatiRegistrati();
     }
+    
     public void delete(int indice){
-        
+        CsvManager.getDatiAlloggi().remove(indice);
+        this.caricaAlloggi();
     }
     public void aggiungiAlloggio(Housing a) {
     }
@@ -197,6 +197,14 @@ public class Manager {
     public void rimuoviAlloggio(String nome) {}
 
     public void modificaAlloggio(String nome, Housing nuovo) {}
+
+    public Map<String, String> getRegistrati() {
+        return registrati;
+    }
+
+    public Map<String, Seller> getProprietari() {
+        return proprietari;
+    }
 
 
 }
