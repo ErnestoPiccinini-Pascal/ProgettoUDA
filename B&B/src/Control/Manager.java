@@ -77,9 +77,7 @@ public class Manager {
                 }
                 recensioni=new ArrayList<>();
                 valori[7]=valori[7].substring(2, valori[7].length()-2);
-                System.out.println(valori[7]);
                 String[] valtotrec=valori[7].split("\\|");
-                System.out.println(valtotrec[0]);
                 for(String x: valtotrec){
                     
                     String[] valrec=x.split(",");
@@ -89,10 +87,11 @@ public class Manager {
                 }
                 
                 proprietario=valori[8];
-                alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
-                if(proprietari.get(proprietario).equals(null)){
+                if(proprietari.get(proprietario)==null ){
                     proprietari.put(proprietario, new Seller(null,"",""));
                 }
+                alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
+                
                 proprietari.get(proprietario).aggiungiAlloggio(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
                 cod++;
                 
@@ -100,7 +99,7 @@ public class Manager {
             
     }
     
-    public Manager() throws Exception {
+    public Manager() {
     }
     private static ArrayList<Integer> mesi = new ArrayList<>(
         Arrays.asList(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
@@ -153,7 +152,6 @@ public class Manager {
     }
     public ArrayList<Housing> ricercaperPrezzoMin(Double prezzo){
         ArrayList<Housing> posti=new ArrayList<>();
-        posti=null;
         for(Housing x:alloggi){
             if(x.soddisfaPrezzo(prezzo)){
                posti.add(x);
@@ -162,7 +160,6 @@ public class Manager {
     }
     public ArrayList<Housing> ricercaperServizio(String servizio){
         ArrayList<Housing> posti=new ArrayList<>();
-        posti=null;
         for(Housing x:alloggi){
             if(x.haServizio(servizio)){
                 posti.add(x);
@@ -171,7 +168,6 @@ public class Manager {
     }
     public ArrayList<Housing> ricercapernCamere(int numero){
         ArrayList<Housing> posti=new ArrayList<>();
-        posti=null;
         for(Housing x:alloggi){
             if(x.haNumeroCamere(numero)){
                 posti.add(x);
@@ -180,6 +176,9 @@ public class Manager {
     }
     public ArrayList<Housing> ricercaperProprietario(String p){
      return proprietari.get(p).getAlloggiGestiti();
+    }
+    public String[] alloggioaStringa(Housing a){
+        return CsvManager.getDatiAlloggi().get(a.getCod());
     }
     public boolean creaPrenotazione(Client prenotante, String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
        return prenotante.prenota(userName, housingName, firstDay, lastDay, price, h);

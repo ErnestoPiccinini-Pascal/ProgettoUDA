@@ -5,6 +5,7 @@ import Model.Housing;
 import Model.Review;
 import Control.CsvManager;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,14 +24,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        try {
             Manager gestore = new Manager();
             
             // CARICAMENTO DATI
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+
 
         // CREAZIONE ALLOGGIO
         List<String> servizi = new ArrayList<>();
@@ -52,7 +49,15 @@ public class Main {
         CsvManager e=new CsvManager();
         //ArrayList<Housing> j= e.caricaAlloggi("disponibilita.csv");
         e.leggiCSV("disponibilita.csv",CsvManager.getDatiAlloggi());
-        e.salva("Salva.csv",CsvManager.getDatiAlloggi());
+        gestore.caricaAlloggi();
+        for(Housing x:gestore.ricercapernCamere(0)){
+            ArrayList<String> h=new ArrayList(Arrays.asList(gestore.alloggioaStringa(x)));
+            System.out.println(Manager.toCSV(h));
+            
+        }
+        
+                
+       // e.salva("Salva.csv",CsvManager.getDatiAlloggi());
         //System.out.println(j.get(0).toString());
         
         

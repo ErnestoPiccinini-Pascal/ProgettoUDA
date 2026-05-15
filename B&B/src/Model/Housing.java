@@ -32,9 +32,13 @@ public class Housing {
             }
         }
         
-        return  nome+";"+localita+";"+numeroCamere+";"+prezzo+";"+Manager.toCSV(servizi)+";"+tipoAlloggio+";"+Manager.toCSV(date)+";"+Manager.toCSV(recensioni)+";"+proprietario;
+        return  nome+";"+localita+";"+numeroCamere+";"+prezzo+";"+Manager.toCSV(servizi)+"};"+tipoAlloggio+";"+Manager.toCSV(date)+"};"+Manager.toCSV(recensioni)+"};"+proprietario;
     }
     //private ArrayList<Boolean> disponibilita; // 365 giorni
+
+    public int getCod() {
+        return cod;
+    }
     
     public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Review> recensioni, String proprietario, int cod) {
         this.nome = nome;
