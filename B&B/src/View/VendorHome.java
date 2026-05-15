@@ -79,21 +79,26 @@ public class VendorHome extends javax.swing.JFrame {
 
     private void eliminaRiga() {
 
+        if (dati == null) {
+            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            return;
+        }
         int riga = jTable1.getSelectedRow();
-        if (riga == -1) { 
-            JOptionPane.showMessageDialog(this,"Seleziona una riga!");
+        if (riga == -1) {
+            JOptionPane.showMessageDialog(this, "Seleziona una riga!");
             return;
         }
         dati.remove(riga);
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.removeRow(riga);
-        JOptionPane.showMessageDialog(this,"Elemento eliminato!");
+        ((DefaultTableModel) jTable1.getModel()).removeRow(riga);
+        JOptionPane.showMessageDialog(this, "Elemento eliminato!");
+        
+        //RICORDAMI DI CHIAMARE LA FUNZIONE DELETE
     }
     
     private void modificaRiga() {
 
         if (dati == null) {
-            JOptionPane.showMessageDialog(this, "Carica prima un file CSV!");
+            JOptionPane.showMessageDialog(this, "Carica prima il file!");
             return;
         }
 
@@ -108,24 +113,25 @@ public class VendorHome extends javax.swing.JFrame {
 
         Edit e = new Edit(this, true);
         e.setDati(datiRiga);
-        e.setVisible(true); 
+        e.setVisible(true);
 
         String[] aggiornato = e.getDatiAggiornati();
 
-        if (aggiornato != null) {
-            //aggiorno ArrayList
-            
-            dati.set(riga, aggiornato);
-            //aggiorno JTable SOLO quella riga
-            for (int i = 0; i < aggiornato.length; i++) {
-                jTable1.setValueAt(aggiornato[i], riga, i);
-            }
+        dati.set(riga, aggiornato);
+
+        for (int i = 0; i < aggiornato.length; i++) {
+            jTable1.setValueAt(aggiornato[i], riga, i);
         }
     }
     
     private void salvaCSV() {
+
+        if (dati == null) {
+            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            return;
+        }
         g.salva(percorsoFile, dati);
-        JOptionPane.showMessageDialog(this,"CSV salvato!");
+        JOptionPane.showMessageDialog(this, "Salvato!");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -149,9 +155,6 @@ public class VendorHome extends javax.swing.JFrame {
         Insert = new javax.swing.JMenuItem();
         Delete = new javax.swing.JMenuItem();
         EditText = new javax.swing.JMenuItem();
-        Info = new javax.swing.JMenu();
-        About = new javax.swing.JMenuItem();
-        Credits = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,9 +175,16 @@ public class VendorHome extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTable1.setGridColor(new java.awt.Color(44, 15, 130));
@@ -241,6 +251,11 @@ public class VendorHome extends javax.swing.JFrame {
 
         Insert.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         Insert.setText("Insert");
+        Insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InsertActionPerformed(evt);
+            }
+        });
         jMenu2.add(Insert);
 
         Delete.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
@@ -262,19 +277,6 @@ public class VendorHome extends javax.swing.JFrame {
         jMenu2.add(EditText);
 
         jMenuBar1.add(jMenu2);
-
-        Info.setText("Info");
-        Info.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-
-        About.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        About.setText("About");
-        Info.add(About);
-
-        Credits.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        Credits.setText("Credits");
-        Info.add(Credits);
-
-        jMenuBar1.add(Info);
 
         setJMenuBar(jMenuBar1);
 
@@ -328,6 +330,23 @@ public class VendorHome extends javax.swing.JFrame {
         apriSelectCSV();
     }//GEN-LAST:event_OpenActionPerformed
 
+    private void InsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertActionPerformed
+        // TODO add your handling code here:
+        if (dati == null) {
+            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            return;
+        }
+        
+        Insert ins = new Insert(this, true);
+        ins.setVisible(true);
+
+        String[] nuovo = ins.getDatiAggiornati();
+
+        if (nuovo == null) return;
+        dati.add(nuovo);
+        ((DefaultTableModel) jTable1.getModel()).addRow(nuovo);
+    }//GEN-LAST:event_InsertActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -364,12 +383,9 @@ public class VendorHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem About;
-    private javax.swing.JMenuItem Credits;
     private javax.swing.JMenuItem Delete;
     private javax.swing.JMenuItem EditText;
     private javax.swing.JMenuItem Exit;
-    private javax.swing.JMenu Info;
     private javax.swing.JMenuItem Insert;
     private javax.swing.JMenuItem Open;
     private javax.swing.JMenuItem Save;
