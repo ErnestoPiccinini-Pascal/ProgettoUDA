@@ -20,7 +20,7 @@ public class Housing {
     private ArrayList<String> servizi;
     private String tipoAlloggio;
     private Boolean[] dateDisponibili;
-    private ArrayList<Review> recensioni;
+    private ArrayList<Double> recensioni;
     private String proprietario;
     private int cod;
     @Override
@@ -40,7 +40,7 @@ public class Housing {
         return cod;
     }
     
-    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Review> recensioni, String proprietario, int cod) {
+    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Double> recensioni, String proprietario, int cod) {
         this.nome = nome;
         this.localita = localita;
         this.numeroCamere = numeroCamere;
@@ -83,7 +83,7 @@ public class Housing {
         return dateDisponibili;
     }
 
-    public ArrayList<Review> getRecensioni() {
+    public ArrayList<Double> getRecensioni() {
         return recensioni;
     }
 
@@ -126,7 +126,7 @@ public class Housing {
         this.dateDisponibili = dateDisponibili;
     }
 
-    public void setRecensioni(ArrayList<Review> recensioni) {
+    public void setRecensioni(ArrayList<Double> recensioni) {
         this.recensioni = recensioni;
     }
 
@@ -151,7 +151,7 @@ public class Housing {
         double somma = 0;
         
         for(int i = 0; i < recensioni.size(); i++ ){
-            somma = somma + recensioni.get(i).getVote(); 
+            somma = somma + recensioni.get(i); 
         }
         return somma / recensioni.size();
     }

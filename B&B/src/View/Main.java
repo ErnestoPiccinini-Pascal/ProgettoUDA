@@ -2,7 +2,6 @@ package View;
 
 import Control.Manager;
 import Model.Housing;
-import Model.Review;
 import Control.CsvManager;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +43,6 @@ public class Main {
         //boolean esito = gestore.prenota("mario", "Casa Bella", 10, 15);
 
         // RECENSIONE
-        Review r = new Review("mario", 5, "Bellissimo!");
         //gestore.aggiungiRecensione("Casa Bella", r);
         CsvManager e=new CsvManager();
         //ArrayList<Housing> j= e.caricaAlloggi("disponibilita.csv");

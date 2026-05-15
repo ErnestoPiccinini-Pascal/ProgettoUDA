@@ -7,7 +7,6 @@ package Control;
 import Model.Housing;
 import Model.Booking;
 import Model.Client;
-import Model.Review;
 import Model.Seller;
 import Model.User;
 import java.util.ArrayList;
@@ -26,7 +25,6 @@ public class Manager {
     private ArrayList<Housing> alloggi;
     private ArrayList<Client> clienti;
   //  private ArrayList<String[]> dati=new ArrayList<>();
-    private ArrayList<Review> recensioniMaster=new ArrayList<>();
     private Map<String, Seller> proprietari = new HashMap<>();
     private CsvManager csv=new CsvManager();
             
@@ -48,7 +46,7 @@ public class Manager {
         //6
         Boolean[] dateDisponibili;
         //7
-        ArrayList<Review> recensioni;
+        ArrayList<Double> recensioni;
         //8
         String proprietario;
         //9
@@ -63,6 +61,7 @@ public class Manager {
                 localita=valori[1];
                 numeroCamere=Integer.parseInt(valori[2]);
                 prezzo=Double.parseDouble(valori[3]);
+                
                 valori[4]=valori[4].substring(1, valori[4].length()-2);
                 servizi=new ArrayList<>();
                 for(String x: valori[4].split(",")){
@@ -76,16 +75,11 @@ public class Manager {
                     dateDisponibili[this.giornoaIndice(x)]=false;
                 }
                 recensioni=new ArrayList<>();
-                valori[7]=valori[7].substring(2, valori[7].length()-2);
-                String[] valtotrec=valori[7].split("\\|");
-                for(String x: valtotrec){
-                    
-                    String[] valrec=x.split(",");
-                    Review g=new Review(valrec[0],Integer.parseInt(valrec[1]),valrec[2]);
-                    recensioni.add(g);
-                    recensioniMaster.add(g);
+                valori[7]=valori[7].substring(1, valori[7].length()-2);
+                for(String x: valori[7].split(",")){
+                    recensioni.add(Double.valueOf(x));
                 }
-                
+               
                 proprietario=valori[8];
                 if(proprietari.get(proprietario)==null ){
                     proprietari.put(proprietario, new Seller(null,"",""));

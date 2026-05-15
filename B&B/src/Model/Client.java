@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class Client extends User {
 
     private ArrayList<Booking> prenotazioni;
-    private ArrayList<Review> recensioni;
     
     public Client(String username, String password) {
         super(username, password);
@@ -30,11 +29,6 @@ public class Client extends User {
         }
         return false;
     }
-    public void lasciaRecensione(Housing a, Review r) {}
-    
-    
     
     public void annullaPrenotazione(int giornoInizio, int giornoFine) {}
-
-    public void aggiungiRecensione(Review r) {}
 }

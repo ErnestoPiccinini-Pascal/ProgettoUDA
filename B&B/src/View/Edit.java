@@ -5,8 +5,6 @@
 package View;
 
 import java.awt.Color;
-import java.util.List;
-import javax.swing.DefaultListModel;
 
 /**
  *
@@ -36,13 +34,9 @@ public class Edit extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        servizi = new javax.swing.JList<>();
         nome = new javax.swing.JTextField();
         location = new javax.swing.JTextField();
         camere = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Availability = new javax.swing.JList<>();
         prezzo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -50,21 +44,12 @@ public class Edit extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         tipoAlloggio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         SaveChanges = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        servizi.setBackground(new java.awt.Color(213, 227, 237));
-        servizi.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        servizi.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(servizi);
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         nome.setBackground(new java.awt.Color(213, 227, 237));
         nome.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
@@ -78,15 +63,6 @@ public class Edit extends javax.swing.JDialog {
         camere.setBackground(new java.awt.Color(213, 227, 237));
         camere.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         camere.setText("jTextField3");
-
-        Availability.setBackground(new java.awt.Color(213, 227, 237));
-        Availability.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        Availability.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(Availability);
 
         prezzo.setBackground(new java.awt.Color(213, 227, 237));
         prezzo.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
@@ -111,12 +87,6 @@ public class Edit extends javax.swing.JDialog {
 
         jLabel5.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel5.setText("Type of accommodation");
-
-        jLabel6.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel6.setText("Services");
-
-        jLabel7.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel7.setText("Availability");
 
         jPanel1.setBackground(new java.awt.Color(121, 128, 238));
 
@@ -144,6 +114,32 @@ public class Edit extends javax.swing.JDialog {
         });
         SaveChanges.addActionListener(this::SaveChangesActionPerformed);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Services"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Unavailability"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,23 +151,21 @@ public class Edit extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tipoAlloggio, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(prezzo, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(camere, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(location, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tipoAlloggio, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(65, 65, 65))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54))
             .addGroup(layout.createSequentialGroup()
-                .addGap(196, 196, 196)
+                .addGap(182, 182, 182)
                 .addComponent(SaveChanges)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -197,21 +191,17 @@ public class Edit extends javax.swing.JDialog {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(prezzo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tipoAlloggio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addGap(71, 71, 71))
         );
 
         pack();
@@ -275,59 +265,79 @@ public class Edit extends javax.swing.JDialog {
         camere.setText(datiRiga[2]);
         prezzo.setText(datiRiga[3]);
         tipoAlloggio.setText(datiRiga[5]);
-
-        // tolgo le graffe
-        String serv = datiRiga[4].replace("{", "").replace("}", "").replace("\"", "");
-        // divido gli elementi
-        String[] elementi1 = serv.split(",");
-        
-        DefaultListModel<String> model1 = new DefaultListModel<>();
-        for(String s : elementi1){
-            model1.addElement(s);
-        }
-        servizi.setModel(model1);
-        
-        // tolgo le graffe
-        String disp = datiRiga[6].replace("{", "").replace("}", "").replace("\"", "");
-        // divido gli elementi
-        String[] elementi2 = disp.split(",");
-        
-        DefaultListModel<String> model2 = new DefaultListModel<>();
-        for(String s : elementi2){
-            model2.addElement(s);
-        }
-        Availability.setModel(model2);
-        
         recensioni=datiRiga[7];
+        
+        String serv = datiRiga[4].replace("{", "").replace("}", "").replace("\"", "");
+        String[] elementi1 = serv.split(",");
+
+        javax.swing.table.DefaultTableModel modelServizi = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+        modelServizi.setRowCount(0);
+
+        for(String s : elementi1){
+            modelServizi.addRow(new Object[]{s.trim()});
+        }
+
+        String disp = datiRiga[6].replace("{", "").replace("}", "").replace("\"", "");
+        String[] elementi2 = disp.split(",");
+
+        javax.swing.table.DefaultTableModel modelAvailability = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+
+        modelAvailability.setRowCount(0);
+
+        for(String s : elementi2){
+            modelAvailability.addRow(new Object[]{s.trim()});
+        }
     }
     
     public String[] getDatiAggiornati() {
 
-        // aggiorno campi base
         dati[0] = nome.getText();
         dati[1] = location.getText();
         dati[2] = camere.getText();
         dati[3] = prezzo.getText();
-
-        // LISTA SERVIZI
-        List<String> selezionati1 = servizi.getSelectedValuesList();
-        String serv = "{" + String.join(",", selezionati1) + "}";
-        dati[4] = serv;
-
         dati[5] = tipoAlloggio.getText();
-        
-        // LISTA DATE
-        List<String> selezionati2 = Availability.getSelectedValuesList();
-        String available = "{" + String.join(",", selezionati2) + "}";
-        dati[6] = available;
-        
         dati[7] = recensioni;
 
+        // SERVICES
+        javax.swing.table.DefaultTableModel model1 = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        String serv = "{";
+
+        for (int i = 0; i < model1.getRowCount(); i++) {
+            Object valore = model1.getValueAt(i, 0);
+            if (valore != null && !valore.toString().isBlank()) {
+
+                serv += valore.toString();
+                if (i < model1.getRowCount() - 1) {
+                    serv += ",";
+                }
+            }
+        }
+
+        serv += "}";
+        dati[4] = serv;
+        
+        javax.swing.table.DefaultTableModel model2 = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+        String available = "{";
+
+        for (int i = 0; i < model2.getRowCount(); i++) {
+
+            Object valore = model2.getValueAt(i, 0);
+            if (valore != null && !valore.toString().isBlank()) {
+
+                available += valore.toString();
+                if (i < model2.getRowCount() - 1) {
+                    available += ",";
+                }
+            }
+        }
+
+        available += "}";
+        dati[6] = available;
         return dati;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> Availability;
     private javax.swing.JButton SaveChanges;
     private javax.swing.JTextField camere;
     private javax.swing.JLabel jLabel1;
@@ -335,15 +345,14 @@ public class Edit extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField location;
     private javax.swing.JTextField nome;
     private javax.swing.JTextField prezzo;
-    private javax.swing.JList<String> servizi;
     private javax.swing.JTextField tipoAlloggio;
     // End of variables declaration//GEN-END:variables
 }

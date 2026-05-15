@@ -6,7 +6,6 @@ package Control;
 
 import Model.Housing;
 import Model.Booking;
-import Model.Review;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
