@@ -143,13 +143,12 @@ public class CsvManager {
                     config.put(parts[0].trim(), parts[1].trim());
                 }
             }
-
+            datiRegistrati=config;
             br.close();
         }catch(Exception e){
             System.out.println("something worng");
             config=null;
         }
-        datiRegistrati=config;
     }
     public static ArrayList<String[]> getDatiAlloggi() {
         return datiAlloggi;

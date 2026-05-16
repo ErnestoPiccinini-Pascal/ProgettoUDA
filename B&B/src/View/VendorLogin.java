@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+import Control.Manager;
 import java.awt.Color;
 
 /**
@@ -10,14 +11,17 @@ import java.awt.Color;
  * @author rauccin
  */
 public class VendorLogin extends javax.swing.JFrame {
-
     /**
      * Creates new form VendorLogin
      */
+    private Manager m;
+    private String username;
+    private String password;
     public VendorLogin() {
         initComponents();
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
+        m= new Manager();
         
         
         show.setBackground(Color.WHITE);
@@ -251,10 +255,30 @@ public class VendorLogin extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        VendorHome home = new VendorHome();
-        home.setVisible(true);
+        username = jTextField1.getText().trim();
+        if (username.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Riempire il campo username!","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        password = new String(jPasswordField1.getPassword()).trim();
+        if (password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Riempire il campo password!","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Manager.caricaRegistrati("config.ini");
+        if(m.getRegistrati().get(username)==null){
+            javax.swing.JOptionPane.showMessageDialog(this,"Password o username errati","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            if(m.getRegistrati().get(username).equals(password)){
+                VendorHome home = new VendorHome();
+                home.setVisible(true);
 
-        this.dispose();
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_LoginActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

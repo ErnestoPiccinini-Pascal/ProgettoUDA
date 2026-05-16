@@ -16,9 +16,9 @@ public class Booking {
     private int lastDay;
     private double price;
     Housing alloggio;
-     private static int cod=0;
+    private int cod;
     
-    public Booking(String userName, String housingName, int firstDay, int lastDay, double price, Housing h) {
+    public Booking(String userName, String housingName, int firstDay, int lastDay, double price, Housing h,int cod) {
         this.userName = userName;
         this.housingName = housingName;
         this.firstDay = firstDay;
@@ -26,7 +26,7 @@ public class Booking {
         this.price = price;
         price=price*(lastDay-firstDay);
         this.alloggio = h;
-        this.cod++;
+        this.cod=cod;
     }
 
     public int getCod() {

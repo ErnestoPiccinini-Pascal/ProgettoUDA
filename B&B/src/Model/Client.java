@@ -15,14 +15,14 @@ import java.util.ArrayList;
 public class Client extends User {
 
     private ArrayList<Booking> prenotazioni;
-  
+    
     public Client(String username, String password) {
         super(username, password);
     }
 
     //public ArrayList<Booking> getPrenotazioni() {}
-    public boolean prenota(String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
-        Booking prenotazione=new Booking( userName,  housingName,  firstDay,  lastDay, price, h);
+    public boolean prenota(String userName, String housingName, int firstDay, int lastDay, double price, Housing h,int cod){
+        Booking prenotazione=new Booking( userName,  housingName,  firstDay,  lastDay, price, h,cod);
         if(prenotazione.calcolaDisponibilita(firstDay, lastDay) ){
             prenotazioni.add(prenotazione);
             return true;

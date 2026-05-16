@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+import Control.Manager;
 import java.awt.Color;
 /**
  *
  * @author rauccin
  */
 public class BuyerLogin extends javax.swing.JFrame {
+    private Manager m;
 
     /**
      * Creates new form Login
@@ -17,6 +19,7 @@ public class BuyerLogin extends javax.swing.JFrame {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
         setLocationRelativeTo(null);
+        m= new Manager();
         
 
         show.setBackground(Color.WHITE);
@@ -223,10 +226,30 @@ public class BuyerLogin extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        BuyerHome home = new BuyerHome();
-        home.setVisible(true);
+        String username = jTextField1.getText().trim();
+        if (username.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Riempire il campo username!","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String password = new String(jPasswordField1.getPassword()).trim();
+        if (password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Riempire il campo password!","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Manager.caricaRegistrati("config.ini");
+        if(m.getRegistrati().get(username)==null){
+            javax.swing.JOptionPane.showMessageDialog(this,"Password o username errati","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            if(m.getRegistrati().get(username).equals(password)){
+                BuyerHome home = new BuyerHome();
+                home.setVisible(true);
 
-        this.dispose();
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_LoginActionPerformed
 
     private void showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showActionPerformed

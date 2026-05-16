@@ -54,7 +54,7 @@ public class Manager {
         //8
         String proprietario;
         //9
-
+        int  cod=0;
         for(String[] riga:CsvManager.getDatiAlloggi()){
             Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
             Arrays.setAll(riga, i -> riga[i].replace("{", "").trim());
@@ -85,9 +85,10 @@ public class Manager {
                 proprietari.put(proprietario, new Seller(null,"",""));
                 proprietari.put(proprietario.toLowerCase(), new Seller(null,"",""));
             }
-            alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario));
+            alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
 
-            proprietari.get(proprietario).aggiungiAlloggio(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario));
+            proprietari.get(proprietario).aggiungiAlloggio(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
+            cod++;
 
         }
             
@@ -168,12 +169,12 @@ public class Manager {
         return CsvManager.getDatiAlloggi().get(a.getCod());
     }
     
-    public void caricaRegistrati(String path){
+    public static void caricaRegistrati(String path){
         CsvManager.load(path);
         registrati=CsvManager.getDatiRegistrati();
     }
     
-    public void deleteAlloggio(int indice){
+    public void delete(int indice){
         CsvManager.getDatiAlloggi().remove(indice);
         this.caricaAlloggi();
     }
@@ -257,7 +258,7 @@ public class Manager {
                 clienti.put(userName.toLowerCase(),new Client(userName, ""));
             }
             // aggiunge prenotazione al cliente
-            clienti.get(userName.toLowerCase()).prenota(userName,housingName,firstDay,lastDay,price,alloggio);
+            clienti.get(userName.toLowerCase()).prenota(userName,housingName,firstDay,lastDay,price,alloggio,cod);
             cod++;
         }
     }
@@ -267,12 +268,6 @@ public class Manager {
     public String[] prenotazioneaStringa(Booking b){
         return CsvManager.getDatiPrenotazioni().get(b.getCod());
     }
-    public void prenota(String name, String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
-        clienti.get(name).prenota(userName, housingName, firstDay, lastDay, price, h);
-    }
-    public void aggiungiAlloggio(String name, String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Double> recensioni, String proprietario){
-        Housing a=new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario);
-        proprietari.get(name).aggiungiAlloggio(a);
-    }
+    
 
 }
