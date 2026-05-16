@@ -5,8 +5,10 @@
 package Control;
 
 import Model.Housing;
+import Model.Booking;
 import Model.Client;
 import Model.Seller;
+import Model.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,17 +22,15 @@ import java.util.Map;
 public class Manager {
 
 
-    private static ArrayList<Housing> alloggi;
   //  private ArrayList<String[]> dati=new ArrayList<>();
     
-    private static Map<String,String> registrati=new HashMap<>();
 
-    private static Map<String, Seller> proprietari = new HashMap<>();
-    private static Map<String, Client> clienti = new HashMap<>();
     private CsvManager csv=new CsvManager();
             
+    private static String utenteAtt;
     private static int annoCorrente=2026;
     public void caricaAlloggi() {
+        alloggi=new ArrayList<>();
         //0
         String nome;
         //1
@@ -61,6 +61,7 @@ public class Manager {
                 prezzo=Double.parseDouble(valori[3]);
                 
                 valori[4]=valori[4].substring(1, valori[4].length()-2);
+                valori[4]=valori[4].substring(1, valori[4].length()-1);
                 servizi=new ArrayList<>();
                 for(String x: valori[4].split(",")){
                     servizi.add(x);
@@ -69,18 +70,22 @@ public class Manager {
                 dateDisponibili=new Boolean[365];
                 Arrays.fill(dateDisponibili, true);
                 valori[6]=valori[6].substring(2, valori[6].length()-2);
+                valori[6]=valori[6].substring(2, valori[6].length()-1);
                 for(String x: valori[6].split(",")){
                     dateDisponibili[this.giornoaIndice(x)]=false;
                 }
                 recensioni=new ArrayList<>();
                 valori[7]=valori[7].substring(1, valori[7].length()-2);
+                valori[7]=valori[7].substring(1, valori[7].length()-1);
                 for(String x: valori[7].split(",")){
                     recensioni.add(Double.valueOf(x));
                 }
                
                 proprietario=valori[8];
+                proprietario=valori[8].toLowerCase();
                 if(proprietari.get(proprietario)==null ){
                     proprietari.put(proprietario, new Seller(null,"",""));
+                    proprietari.put(proprietario.toLowerCase(), new Seller(null,"",""));
                 }
                 alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
                 
@@ -93,6 +98,7 @@ public class Manager {
     
     public Manager() {
         alloggi = new ArrayList<>();
+        
     }
     private static ArrayList<Integer> mesi = new ArrayList<>(
         Arrays.asList(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
@@ -104,6 +110,7 @@ public class Manager {
     public int giornoaIndice(String giorno){
         String[] tokens=giorno.split("/");
         int somma=Integer.parseInt(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
+        int somma=Integer.valueOf(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
         return somma;
     }
      static public String indiceaGiorno (int indice){
@@ -137,7 +144,6 @@ public class Manager {
     public ArrayList<Housing> ricercaperLocalità(String Località){
         ArrayList<Housing> posti=new ArrayList<>();
         for(Housing x:alloggi){
-            if (x.getLocalita().equalsIgnoreCase(Località.trim())){
                posti.add(x);
             }
         }return posti;
@@ -198,9 +204,20 @@ public class Manager {
         return registrati;
     }
 
+    public String usernameaNome(String userna){
+        String[] s=userna.split(".");
+        utenteAtt=(s[0].split(" ")[0]+s[0].split(" ")[1]).toLowerCase();
+        return (s[0]+s[1]).toLowerCase();
+        
+    }
+    
     public Map<String, Seller> getProprietari() {
         return proprietari;
     }
 
+    public static String getUtenteAtt() {
+        return utenteAtt;
+    }
 
+}
 }

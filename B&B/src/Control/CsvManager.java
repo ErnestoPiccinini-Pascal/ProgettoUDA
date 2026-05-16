@@ -4,10 +4,17 @@
  */
 package Control;
 
+import Model.Housing;
+import Model.Booking;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.System.console;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -53,6 +60,7 @@ public class CsvManager {
     }
     public void salva(String path,ArrayList<String[]> dati){
         Map<String, String> users = new HashMap<>();
+    public static void salvaAlloggi(String path, ArrayList<String[]> dati) {
 
         BufferedReader br;
         try {
@@ -60,17 +68,44 @@ public class CsvManager {
              String line;
             while ((line = br.readLine()) != null) {
             line = line.trim();
+        try (FileWriter writer = new FileWriter(path)) {
+
+            for (String[] riga : dati) {
+
+                StringBuilder sb = new StringBuilder();
+
+                for (int i = 0; i < riga.length; i++) {
+
+                    String campo = riga[i];
+                    if (campo == null) campo = "";
 
             if (line.isEmpty() || line.startsWith("[")) continue;
+                    // SERVIZI / ARRAY STRINGHE
+                    if (campo.startsWith("[") || campo.startsWith("{")) {
 
             String[] parts = line.split("=");
+                        // già formattato? lo lasciamo
+                        sb.append(campo);
 
             if (parts.length == 2) {
                 String user = parts[0].trim();
                 String pass = parts[1].trim();
+                    } else {
+                        sb.append(campo);
+                    }
 
                 users.put(user, pass);
+                    if (i < riga.length - 1) {
+                        sb.append(";");
+                    }
+                }
+
+                sb.append(";\n");
+                writer.write(sb.toString());
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         } catch (Exception ex) {
             Logger.getLogger(CsvManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,6 +132,7 @@ public class CsvManager {
 
             br.close();
         }catch(Exception e){
+            System.out.println("something worng");
             config=null;
         }
         datiRegistrati=config;
@@ -110,4 +146,5 @@ public class CsvManager {
     }
     
    
+    
 }
