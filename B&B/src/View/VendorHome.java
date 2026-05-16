@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
  * @author rauccin
  */
 public class VendorHome extends javax.swing.JFrame {
-    private CsvManager g;
     private Manager m;
     private String percorsoFile;
     private ArrayList<String[]> dati;
@@ -26,7 +25,6 @@ public class VendorHome extends javax.swing.JFrame {
      */
     public VendorHome() {
         initComponents();
-        g = new CsvManager();
         m = new Manager();
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
@@ -53,8 +51,8 @@ public class VendorHome extends javax.swing.JFrame {
 
         DefaultTableModel model = new DefaultTableModel();
         String[] colonne = {
-            "Nome", "Località", "Camere", "Prezzo",
-            "Servizi", "Tipo", "Disponibilità", "Recensioni", "Proprietario"
+            "Name", "Location", "Rooms", "Price",
+            "Services", "Type", "Unavailability", "Reviews", "Owner"
         };
         model.setColumnIdentifiers(colonne);
         for (String[] riga : dati) {
@@ -74,8 +72,7 @@ public class VendorHome extends javax.swing.JFrame {
             dati = CsvManager.getDatiAlloggi();
             CsvManager.leggiCSV(percorsoFile, dati);
             caricaTabella(dati);
-            m.caricaAlloggi();
-            
+            m.caricaAlloggi();      
         }else {
             JOptionPane.showMessageDialog(this,"Nessun file selezionato!");
         }
@@ -209,9 +206,9 @@ public class VendorHome extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(543, 543, 543)
+                .addGap(579, 579, 579)
                 .addComponent(jLabel2)
-                .addContainerGap(553, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,7 +381,7 @@ public class VendorHome extends javax.swing.JFrame {
             return;
         }
         
-        ByLocation ins = new ByLocation(this, true);
+        ByLocationVendor ins = new ByLocationVendor(this, true);
         ins.setVisible(true);
     }//GEN-LAST:event_ByLocationActionPerformed
 
@@ -395,7 +392,7 @@ public class VendorHome extends javax.swing.JFrame {
             return;
         }
         
-        ByPrice ins = new ByPrice(this, true);
+        ByPriceVendor ins = new ByPriceVendor(this, true);
         ins.setVisible(true);
     }//GEN-LAST:event_ByPriceActionPerformed
 
