@@ -56,15 +56,14 @@ public class Manager {
         int  cod=0;
         for(String[] riga:CsvManager.getDatiAlloggi()){
             Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
-
+            Arrays.setAll(riga, i -> riga[i].replace("{", "").trim());
+            Arrays.setAll(riga, i -> riga[i].replace("}", "").trim());
             String[] valori = riga;
             nome=valori[0];
             localita=valori[1];
             numeroCamere=Integer.parseInt(valori[2]);
             prezzo=Double.parseDouble(valori[3]);
 
-            valori[4]=valori[4].substring(1, valori[4].length()-2);
-            valori[4]=valori[4].substring(1, valori[4].length()-1);
             servizi=new ArrayList<>();
             for(String x: valori[4].split(",")){
                 servizi.add(x);
@@ -72,13 +71,10 @@ public class Manager {
             tipoAlloggio=valori[5];
             dateDisponibili=new Boolean[365];
             Arrays.fill(dateDisponibili, true);
-            valori[6]=valori[6].substring(2, valori[6].length()-2);
             for(String x: valori[6].split(",")){
                 dateDisponibili[this.giornoaIndice(x)]=false;
             }
             recensioni=new ArrayList<>();
-            valori[7]=valori[7].substring(1, valori[7].length()-2);
-            valori[7]=valori[7].substring(1, valori[7].length()-1);
             for(String x: valori[7].split(",")){
                 recensioni.add(Double.valueOf(x));
             }
@@ -95,6 +91,10 @@ public class Manager {
 
         }
             
+    }
+
+    public static ArrayList<Housing> getAlloggi() {
+        return alloggi;
     }
     
     public void vediAlloggi(){

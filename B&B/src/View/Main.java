@@ -49,9 +49,11 @@ public class Main {
         //ArrayList<Housing> j= e.caricaAlloggi("disponibilita.csv");
         e.leggiCSV("disponibilita.csv",CsvManager.getDatiAlloggi());
         gestore.caricaAlloggi();
-
+        System.out.println(gestore.getAlloggi().get(0));
+        System.out.println(gestore.getAlloggi().get(2));
+        gestore.delete(2);
+        System.out.println(gestore.getAlloggi().get(2));
         
-                
        // e.salva("Salva.csv",CsvManager.getDatiAlloggi());
         //System.out.println(j.get(0).toString());
         gestore.caricaRegistrati("config.ini");
