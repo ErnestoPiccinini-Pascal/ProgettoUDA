@@ -51,25 +51,36 @@ public class CsvManager {
     public static ArrayList<String[]> getDati(ArrayList<String[]> dati) {
         return dati;
     }
-    public void salva(String path,ArrayList<String[]> dati){
-        Map<String, String> users = new HashMap<>();
+    public static void salvaAlloggi(String path, ArrayList<String[]> dati) {
 
-        BufferedReader br;
-        try {
-            br = new BufferedReader(new FileReader("config.ini"));
-             String line;
-            while ((line = br.readLine()) != null) {
-            line = line.trim();
+        try (FileWriter writer = new FileWriter(path)) {
 
-            if (line.isEmpty() || line.startsWith("[")) continue;
+            for (String[] riga : dati) {
 
-            String[] parts = line.split("=");
+                StringBuilder sb = new StringBuilder();
 
-            if (parts.length == 2) {
-                String user = parts[0].trim();
-                String pass = parts[1].trim();
+                for (int i = 0; i < riga.length; i++) {
 
-                users.put(user, pass);
+                    String campo = riga[i];
+                    if (campo == null) campo = "";
+
+                    // SERVIZI / ARRAY STRINGHE
+                    if (campo.startsWith("[") || campo.startsWith("{")) {
+
+                        // già formattato? lo lasciamo
+                        sb.append(campo);
+
+                    } else {
+                        sb.append(campo);
+                    }
+
+                    if (i < riga.length - 1) {
+                        sb.append(";");
+                    }
+                }
+
+                sb.append(";\n");
+                writer.write(sb.toString());
             }
         }
         } catch (Exception ex) {
@@ -97,6 +108,7 @@ public class CsvManager {
 
             br.close();
         }catch(Exception e){
+            System.out.println("something worng");
             config=null;
         }
         datiRegistrati=config;
