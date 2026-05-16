@@ -21,8 +21,8 @@ public class Client extends User {
     }
 
     //public ArrayList<Booking> getPrenotazioni() {}
-    public boolean prenota(String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
-        Booking prenotazione=new Booking( userName,  housingName,  firstDay,  lastDay, price, h);
+    public boolean prenota(String userName, String housingName, int firstDay, int lastDay, double price, Housing h,int cod){
+        Booking prenotazione=new Booking( userName,  housingName,  firstDay,  lastDay, price, h,cod);
         if(prenotazione.calcolaDisponibilita(firstDay, lastDay) ){
             prenotazioni.add(prenotazione);
             return true;
@@ -31,4 +31,9 @@ public class Client extends User {
     }
     
     public void annullaPrenotazione(int giornoInizio, int giornoFine) {}
+
+    public ArrayList<Booking> getPrenotazioni() {
+        return prenotazioni;
+    }
+    
 }

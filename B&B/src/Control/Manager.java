@@ -111,10 +111,7 @@ public class Manager {
     private static ArrayList<Integer> mesi = new ArrayList<>(
         Arrays.asList(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
     );
-    // FILE
-    //public void caricaDatabase(String pathAlloggi, String pathPrenotazioni) {}
-
-   // public void salvaDatabase(String pathAlloggi, String pathPrenotazioni) {}
+  
     public int giornoaIndice(String giorno){
         String[] tokens=giorno.split("/");
         int somma=Integer.valueOf(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
@@ -166,12 +163,12 @@ public class Manager {
             }
         }return posti;
     }
+    public ArrayList<Housing> ricercaperProprietario(String p){
+     return proprietari.get(p).getAlloggiGestiti();
+    }
 
     public String[] alloggioaStringa(Housing a){
         return CsvManager.getDatiAlloggi().get(a.getCod());
-    }
-    public boolean creaPrenotazione(Client prenotante, String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
-       return prenotante.prenota(userName, housingName, firstDay, lastDay, price, h);
     }
     
     public void caricaRegistrati(String path){
@@ -211,6 +208,78 @@ public class Manager {
     }
         
     
+    public void caricaPrenotazioni() {
+        //0
+        String userName;
+        //1
+        String housingName;
+        //2
+        int firstDay;
+        //3
+        int lastDay;
+        //4
+        double price;
+        int cod=0;
+        Housing alloggio;
+
+        boolean primaRiga = true;
+
+        for (String[] riga : CsvManager.getDatiPrenotazioni()) {
+
+            // salta header csv
+            if (primaRiga) {
+                primaRiga = false;
+                continue;
+            }
+
+            Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
+
+            String[] valori = riga;
+
+            userName = valori[0];
+            housingName = valori[1];
+
+            // converte data -> indice
+            firstDay = giornoaIndice(valori[2]);
+            lastDay = giornoaIndice(valori[3]);
+
+            price = Double.parseDouble(valori[4]);
+
+            alloggio = null;
+
+            // cerca alloggio
+            for (Housing h : alloggi) {
+                if (h.getNome().equalsIgnoreCase(housingName)) {
+                    alloggio = h;
+                    break;
+                }
+            }
+
+            // crea cliente se non esiste
+            if (clienti.get(userName.toLowerCase()) == null) {
+
+                clienti.put(
+                    userName.toLowerCase(),
+                    new Client(userName, "")
+                );
+            }
+            // aggiunge prenotazione al cliente
+            clienti.get(userName.toLowerCase()).prenota(userName,
+                    housingName,
+                    firstDay,
+                    lastDay,
+                    price,
+                    alloggio,
+                    cod);
+            cod++;
+        }
+    }
+    public ArrayList<Booking> ricercaperPrenotazione(String p){
+     return clienti.get(p).getPrenotazioni();
+    }
+    public String[] prenotazioneaStringa(Booking b){
+        return CsvManager.getDatiPrenotazioni().get(b.getCod());
+    }
     
 
 }
