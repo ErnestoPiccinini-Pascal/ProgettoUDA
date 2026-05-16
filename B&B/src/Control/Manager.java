@@ -30,7 +30,7 @@ public class Manager {
     private Map<String, Seller> proprietari = new HashMap<>();
     private Map<String, Client> clienti = new HashMap<>();
     private CsvManager csv=new CsvManager();
-            
+    private static String utenteAtt;
     private static int annoCorrente=2026;
     public void caricaAlloggi() {
         alloggi=new ArrayList<>();
@@ -55,9 +55,7 @@ public class Manager {
         //9
         int  cod=0;
             for(String[] riga:CsvManager.getDatiAlloggi()){
-                for(String x:riga){
-                    x.replace("\"","");
-                }
+                Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
                 
                 String[] valori = riga;
                 nome=valori[0];
@@ -85,7 +83,7 @@ public class Manager {
                
                 proprietario=valori[8];
                 if(proprietari.get(proprietario)==null ){
-                    proprietari.put(proprietario, new Seller(null,"",""));
+                    proprietari.put(proprietario.toLowerCase(), new Seller(null,"",""));
                 }
                 alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
                 
@@ -107,7 +105,7 @@ public class Manager {
    // public void salvaDatabase(String pathAlloggi, String pathPrenotazioni) {}
     public int giornoaIndice(String giorno){
         String[] tokens=giorno.split("/");
-        int somma=Integer.parseInt(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
+        int somma=Integer.valueOf(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
         return somma;
     }
      static public String indiceaGiorno (int indice){
@@ -201,10 +199,14 @@ public class Manager {
     public Map<String, String> getRegistrati() {
         return registrati;
     }
-
+    public String usernameaNome(String userna){
+        String[] s=userna.split(".");
+        utenteAtt=(s[0].split(" ")[0]+s[0].split(" ")[1]).toLowerCase();
+        return (s[0]+s[1]).toLowerCase();
+        
+    }
     public Map<String, Seller> getProprietari() {
         return proprietari;
     }
-
 
 }

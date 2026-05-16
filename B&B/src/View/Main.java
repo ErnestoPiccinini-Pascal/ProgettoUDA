@@ -60,7 +60,10 @@ public class Main {
         //System.out.println(j.get(0).toString());
         gestore.caricaRegistrati("config.ini");
         Map<String,String> reg=gestore.getRegistrati();
-        System.out.println(reg.get(0)+" "+reg.get(1));
+        String g="bluehorns4ever";
+        for(String s:reg.values()){
+            System.out.println(s);
+        }
         
         // SALVATAGGIO
        // gestore.salvaDatabase("alloggi.csv", "prenotazioni.csv");

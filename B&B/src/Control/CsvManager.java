@@ -107,6 +107,7 @@ public class CsvManager {
 
             br.close();
         }catch(Exception e){
+            System.out.println("something worng");
             config=null;
         }
         datiRegistrati=config;
