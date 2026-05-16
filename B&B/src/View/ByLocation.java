@@ -24,7 +24,7 @@ public class ByLocation extends javax.swing.JDialog {
     public ByLocation(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.m = m;
+        m = new Manager();
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
     }

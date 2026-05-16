@@ -27,6 +27,7 @@ public class VendorHome extends javax.swing.JFrame {
     public VendorHome() {
         initComponents();
         g = new CsvManager();
+        m = new Manager();
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
         
