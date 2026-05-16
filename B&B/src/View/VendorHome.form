@@ -116,6 +116,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="by price"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ByPriceActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

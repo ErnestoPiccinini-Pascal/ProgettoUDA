@@ -299,6 +299,11 @@ public class VendorHome extends javax.swing.JFrame {
 
         ByPrice.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         ByPrice.setText("by price");
+        ByPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ByPriceActionPerformed(evt);
+            }
+        });
         research.add(ByPrice);
 
         jMenuBar1.add(research);
@@ -382,6 +387,17 @@ public class VendorHome extends javax.swing.JFrame {
         ByLocation ins = new ByLocation(this, true);
         ins.setVisible(true);
     }//GEN-LAST:event_ByLocationActionPerformed
+
+    private void ByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ByPriceActionPerformed
+        // TODO add your handling code here:
+        if (dati == null) {
+            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            return;
+        }
+        
+        ByPrice ins = new ByPrice(this, true);
+        ins.setVisible(true);
+    }//GEN-LAST:event_ByPriceActionPerformed
 
     /**
      * @param args the command line arguments
