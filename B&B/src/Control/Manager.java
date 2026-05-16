@@ -52,9 +52,7 @@ public class Manager {
         //9
         int  cod=0;
             for(String[] riga:CsvManager.getDatiAlloggi()){
-                for(String x:riga){
-                    x.replace("\"","");
-                }
+                Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
                 
                 String[] valori = riga;
                 nome=valori[0];
