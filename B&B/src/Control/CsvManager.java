@@ -4,17 +4,10 @@
  */
 package Control;
 
-import Model.Housing;
-import Model.Booking;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import static java.lang.System.console;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -82,9 +75,6 @@ public class CsvManager {
         } catch (Exception ex) {
             Logger.getLogger(CsvManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-     
-
         
     }
     public static void load(String path)  {
@@ -119,15 +109,5 @@ public class CsvManager {
         return datiPrenotazioni;
     }
     
-    
-    public void delete(int indice){
-        /* 
-        for(String[] x: dati){
-            if(x[0]==hotel){
-                dati.remove(x);
-                break;
-            }
-        }
-        */
-    }
+   
 }

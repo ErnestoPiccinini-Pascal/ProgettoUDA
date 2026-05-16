@@ -5,6 +5,7 @@
 package View;
 
 import Control.CsvManager;
+import Control.Manager;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VendorHome extends javax.swing.JFrame {
     private CsvManager g;
+    private Manager m;
     private String percorsoFile;
     private ArrayList<String[]> dati;
     /**
@@ -92,7 +94,7 @@ public class VendorHome extends javax.swing.JFrame {
         ((DefaultTableModel) jTable1.getModel()).removeRow(riga);
         JOptionPane.showMessageDialog(this, "Elemento eliminato!");
         
-        //RICORDAMI DI CHIAMARE LA FUNZIONE DELETE
+        m.delete(riga);
     }
     
     private void modificaRiga() {
@@ -130,7 +132,7 @@ public class VendorHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Carica prima il file!");
             return;
         }
-        g.salva(percorsoFile, dati);
+        m.caricaAlloggi();
         JOptionPane.showMessageDialog(this, "Salvato!");
     }
     /**
@@ -155,6 +157,9 @@ public class VendorHome extends javax.swing.JFrame {
         Insert = new javax.swing.JMenuItem();
         Delete = new javax.swing.JMenuItem();
         EditText = new javax.swing.JMenuItem();
+        research = new javax.swing.JMenu();
+        ByLocation = new javax.swing.JMenuItem();
+        ByPrice = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -278,6 +283,24 @@ public class VendorHome extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        research.setText("Research");
+        research.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        ByLocation.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        ByLocation.setText("by location");
+        ByLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ByLocationActionPerformed(evt);
+            }
+        });
+        research.add(ByLocation);
+
+        ByPrice.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        ByPrice.setText("by price");
+        research.add(ByPrice);
+
+        jMenuBar1.add(research);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -347,6 +370,17 @@ public class VendorHome extends javax.swing.JFrame {
         ((DefaultTableModel) jTable1.getModel()).addRow(nuovo);
     }//GEN-LAST:event_InsertActionPerformed
 
+    private void ByLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ByLocationActionPerformed
+        // TODO add your handling code here:
+        if (dati == null) {
+            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            return;
+        }
+        
+        ByLocation ins = new ByLocation(this, true);
+        ins.setVisible(true);
+    }//GEN-LAST:event_ByLocationActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -383,6 +417,8 @@ public class VendorHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ByLocation;
+    private javax.swing.JMenuItem ByPrice;
     private javax.swing.JMenuItem Delete;
     private javax.swing.JMenuItem EditText;
     private javax.swing.JMenuItem Exit;
@@ -396,5 +432,6 @@ public class VendorHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenu research;
     // End of variables declaration//GEN-END:variables
 }

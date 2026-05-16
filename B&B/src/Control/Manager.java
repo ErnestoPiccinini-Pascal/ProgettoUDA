@@ -5,10 +5,8 @@
 package Control;
 
 import Model.Housing;
-import Model.Booking;
 import Model.Client;
 import Model.Seller;
-import Model.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,7 +31,6 @@ public class Manager {
             
     private static int annoCorrente=2026;
     public void caricaAlloggi() {
-        alloggi=new ArrayList<>();
         //0
         String nome;
         //1
@@ -97,6 +94,7 @@ public class Manager {
     }
     
     public Manager() {
+        alloggi = new ArrayList<>();
     }
     private static ArrayList<Integer> mesi = new ArrayList<>(
         Arrays.asList(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
@@ -140,13 +138,13 @@ public class Manager {
     }
     public ArrayList<Housing> ricercaperLocalità(String Località){
         ArrayList<Housing> posti=new ArrayList<>();
-        posti=null;
         for(Housing x:alloggi){
-            if(x.getLocalita().equals(Località)){
+            if (x.getLocalita().equalsIgnoreCase(Località.trim())){
                posti.add(x);
             }
         }return posti;
     }
+    
     public ArrayList<Housing> ricercaperPrezzoMin(Double prezzo){
         ArrayList<Housing> posti=new ArrayList<>();
         for(Housing x:alloggi){
