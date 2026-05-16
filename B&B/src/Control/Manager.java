@@ -12,6 +12,7 @@ import Model.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +33,7 @@ public class Manager {
     private CsvManager csv=new CsvManager();
     private static String utenteAtt;
     private static int annoCorrente=2026;
+    //----------------------------------------------- ALLOGGI------------------------------------
     public void caricaAlloggi() {
         alloggi=new ArrayList<>();
         //0
@@ -181,12 +183,14 @@ public class Manager {
         CsvManager.getDatiAlloggi().remove(indice);
         this.caricaAlloggi();
     }
-    public void aggiungiAlloggio(Housing a) {
+   
+    public void modificaAlloggio(int indice, Housing nuovo) {
+        alloggi.set(indice, nuovo);
+        String[] s= CsvManager.getDatiAlloggi().set(indice, this.alloggioaStringa(nuovo));
+         List<String> g=Arrays.asList(s);
+        CsvManager.setDatiAlloggi(CsvManager.getDatiAlloggi());
+    
     }
-
-    public void rimuoviAlloggio(String nome) {}
-
-    public void modificaAlloggio(String nome, Housing nuovo) {}
 
     public Map<String, String> getRegistrati() {
         return registrati;
@@ -205,5 +209,8 @@ public class Manager {
     public static String getUtenteAtt() {
         return utenteAtt;
     }
+        
+    
+    
 
 }

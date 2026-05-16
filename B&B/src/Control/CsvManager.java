@@ -54,6 +54,10 @@ public class CsvManager {
             e.printStackTrace();
         }
     }
+
+    public static void setDatiAlloggi(ArrayList<String[]> datiAlloggi) {
+        CsvManager.datiAlloggi = datiAlloggi;
+    }
     
     public static ArrayList<String[]> getDati(ArrayList<String[]> dati) {
         return dati;
