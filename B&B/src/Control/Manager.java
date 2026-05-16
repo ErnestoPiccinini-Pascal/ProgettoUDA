@@ -22,11 +22,14 @@ import java.util.Map;
 public class Manager {
 
 
+    private static ArrayList<Housing> alloggi;
   //  private ArrayList<String[]> dati=new ArrayList<>();
     
+    private static Map<String,String> registrati=new HashMap<>();
 
+    private static Map<String, Seller> proprietari = new HashMap<>();
+    private static Map<String, Client> clienti = new HashMap<>();
     private CsvManager csv=new CsvManager();
-            
     private static String utenteAtt;
     private static int annoCorrente=2026;
     public void caricaAlloggi() {
@@ -109,7 +112,6 @@ public class Manager {
    // public void salvaDatabase(String pathAlloggi, String pathPrenotazioni) {}
     public int giornoaIndice(String giorno){
         String[] tokens=giorno.split("/");
-        int somma=Integer.parseInt(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
         int somma=Integer.valueOf(tokens[0])+mesi.get(Integer.parseInt(tokens[1])-1);
         return somma;
     }
@@ -144,11 +146,11 @@ public class Manager {
     public ArrayList<Housing> ricercaperLocalità(String Località){
         ArrayList<Housing> posti=new ArrayList<>();
         for(Housing x:alloggi){
+            if(x.getLocalita().equals(Località)){
                posti.add(x);
             }
         }return posti;
     }
-    
     public ArrayList<Housing> ricercaperPrezzoMin(Double prezzo){
         ArrayList<Housing> posti=new ArrayList<>();
         for(Housing x:alloggi){
@@ -203,7 +205,6 @@ public class Manager {
     public Map<String, String> getRegistrati() {
         return registrati;
     }
-
     public String usernameaNome(String userna){
         String[] s=userna.split(".");
         utenteAtt=(s[0].split(" ")[0]+s[0].split(" ")[1]).toLowerCase();
@@ -219,5 +220,4 @@ public class Manager {
         return utenteAtt;
     }
 
-}
 }

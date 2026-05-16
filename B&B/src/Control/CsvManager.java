@@ -58,16 +58,8 @@ public class CsvManager {
     public static ArrayList<String[]> getDati(ArrayList<String[]> dati) {
         return dati;
     }
-    public void salva(String path,ArrayList<String[]> dati){
-        Map<String, String> users = new HashMap<>();
     public static void salvaAlloggi(String path, ArrayList<String[]> dati) {
 
-        BufferedReader br;
-        try {
-            br = new BufferedReader(new FileReader("config.ini"));
-             String line;
-            while ((line = br.readLine()) != null) {
-            line = line.trim();
         try (FileWriter writer = new FileWriter(path)) {
 
             for (String[] riga : dati) {
@@ -79,22 +71,16 @@ public class CsvManager {
                     String campo = riga[i];
                     if (campo == null) campo = "";
 
-            if (line.isEmpty() || line.startsWith("[")) continue;
                     // SERVIZI / ARRAY STRINGHE
                     if (campo.startsWith("[") || campo.startsWith("{")) {
 
-            String[] parts = line.split("=");
                         // già formattato? lo lasciamo
                         sb.append(campo);
 
-            if (parts.length == 2) {
-                String user = parts[0].trim();
-                String pass = parts[1].trim();
                     } else {
                         sb.append(campo);
                     }
 
-                users.put(user, pass);
                     if (i < riga.length - 1) {
                         sb.append(";");
                     }
@@ -107,10 +93,6 @@ public class CsvManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        } catch (Exception ex) {
-            Logger.getLogger(CsvManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
     public static void load(String path)  {
         Map<String, String> config = new HashMap<>();
@@ -145,6 +127,5 @@ public class CsvManager {
         return datiPrenotazioni;
     }
     
-   
     
 }
