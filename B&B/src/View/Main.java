@@ -64,9 +64,7 @@ public class Main {
         for(String s:reg.values()){
             System.out.println(s);
         }
-        
-        // SALVATAGGIO
-       // gestore.salvaDatabase("alloggi.csv", "prenotazioni.csv");
+        CsvManager.salvaAlloggi("Salva.csv", CsvManager.getDatiAlloggi());
 
         System.out.println("Test completato.");
     }

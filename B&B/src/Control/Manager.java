@@ -63,7 +63,7 @@ public class Manager {
                 numeroCamere=Integer.parseInt(valori[2]);
                 prezzo=Double.parseDouble(valori[3]);
                 
-                valori[4]=valori[4].substring(1, valori[4].length()-2);
+                valori[4]=valori[4].substring(1, valori[4].length()-1);
                 servizi=new ArrayList<>();
                 for(String x: valori[4].split(",")){
                     servizi.add(x);
@@ -71,17 +71,17 @@ public class Manager {
                 tipoAlloggio=valori[5];
                 dateDisponibili=new Boolean[365];
                 Arrays.fill(dateDisponibili, true);
-                valori[6]=valori[6].substring(2, valori[6].length()-2);
+                valori[6]=valori[6].substring(2, valori[6].length()-1);
                 for(String x: valori[6].split(",")){
                     dateDisponibili[this.giornoaIndice(x)]=false;
                 }
                 recensioni=new ArrayList<>();
-                valori[7]=valori[7].substring(1, valori[7].length()-2);
+                valori[7]=valori[7].substring(1, valori[7].length()-1);
                 for(String x: valori[7].split(",")){
                     recensioni.add(Double.valueOf(x));
                 }
                
-                proprietario=valori[8];
+                proprietario=valori[8].toLowerCase();
                 if(proprietari.get(proprietario)==null ){
                     proprietari.put(proprietario.toLowerCase(), new Seller(null,"",""));
                 }
@@ -95,6 +95,7 @@ public class Manager {
     }
     
     public Manager() {
+        
     }
     private static ArrayList<Integer> mesi = new ArrayList<>(
         Arrays.asList(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
@@ -138,7 +139,6 @@ public class Manager {
     }
     public ArrayList<Housing> ricercaperLocalità(String Località){
         ArrayList<Housing> posti=new ArrayList<>();
-        posti=null;
         for(Housing x:alloggi){
             if(x.getLocalita().equals(Località)){
                posti.add(x);
@@ -205,8 +205,13 @@ public class Manager {
         return (s[0]+s[1]).toLowerCase();
         
     }
+    
     public Map<String, Seller> getProprietari() {
         return proprietari;
+    }
+
+    public static String getUtenteAtt() {
+        return utenteAtt;
     }
 
 }
