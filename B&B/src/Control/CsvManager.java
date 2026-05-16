@@ -91,6 +91,41 @@ public class CsvManager {
             e.printStackTrace();
         }
     }
+    public static void salvaPrenotazioni(String path, ArrayList<String[]> dati){
+        try (FileWriter writer = new FileWriter(path)) {
+
+            for (String[] riga : dati) {
+
+                StringBuilder sb = new StringBuilder();
+
+                for (int i = 0; i < riga.length; i++) {
+
+                    String campo = riga[i];
+                    if (campo == null) campo = "";
+
+                    // SERVIZI / ARRAY STRINGHE
+                    /*if (campo.startsWith("[") || campo.startsWith("{")) {
+
+                        // già formattato? lo lasciamo
+                        sb.append(campo);
+
+                    } else {
+                        sb.append(campo);
+                    }*/
+
+                    if (i < riga.length - 1) {
+                        sb.append(";");
+                    }
+                }
+
+                sb.append(";\n");
+                writer.write(sb.toString());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void load(String path)  {
         Map<String, String> config = new HashMap<>();
         try{

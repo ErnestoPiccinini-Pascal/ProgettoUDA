@@ -22,7 +22,7 @@ public class Housing {
     private Boolean[] dateDisponibili;
     private ArrayList<Double> recensioni;
     private String proprietario;
-    private int cod;
+    private static int cod=0;
     @Override
     public String toString() {
         ArrayList<String> date=new ArrayList<>();
@@ -40,7 +40,7 @@ public class Housing {
         return cod;
     }
     
-    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Double> recensioni, String proprietario, int cod) {
+    public Housing(String nome, String localita, int numeroCamere, double prezzo, ArrayList<String> servizi, String tipoAlloggio, Boolean[] dateDisponibili, ArrayList<Double> recensioni, String proprietario) {
         this.nome = nome;
         this.localita = localita;
         this.numeroCamere = numeroCamere;
@@ -50,7 +50,7 @@ public class Housing {
         this.dateDisponibili = dateDisponibili;
         this.recensioni = recensioni;
         this.proprietario = proprietario;
-        this.cod = cod;
+        this.cod++;
     }
 
     // GETTER
