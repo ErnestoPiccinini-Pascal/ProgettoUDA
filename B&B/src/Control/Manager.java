@@ -8,7 +8,6 @@ import Model.Housing;
 import Model.Booking;
 import Model.Client;
 import Model.Seller;
-import Model.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -149,8 +148,7 @@ public class Manager {
     public ArrayList<Housing> ricercaperLocalità(String Località){
         ArrayList<Housing> posti=new ArrayList<>();
         for(Housing x:alloggi){
-            System.out.println("sout" + x.getLocalita());
-            if(x.getLocalita().equals(Località)){
+            if(x.getLocalita().toLowerCase().equals(Località.toLowerCase())){
                posti.add(x);
             }
         }return posti;
@@ -257,20 +255,10 @@ public class Manager {
 
             // crea cliente se non esiste
             if (clienti.get(userName.toLowerCase()) == null) {
-
-                clienti.put(
-                    userName.toLowerCase(),
-                    new Client(userName, "")
-                );
+                clienti.put(userName.toLowerCase(),new Client(userName, ""));
             }
             // aggiunge prenotazione al cliente
-            clienti.get(userName.toLowerCase()).prenota(userName,
-                    housingName,
-                    firstDay,
-                    lastDay,
-                    price,
-                    alloggio,
-                    cod);
+            clienti.get(userName.toLowerCase()).prenota(userName,housingName,firstDay,lastDay,price,alloggio,cod);
             cod++;
         }
     }
