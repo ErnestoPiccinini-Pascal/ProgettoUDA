@@ -72,8 +72,9 @@ public class VendorHome extends javax.swing.JFrame {
             File file = chooser.getSelectedFile();
             percorsoFile = file.getAbsolutePath();
             dati = CsvManager.getDatiAlloggi();
-            g.leggiCSV(percorsoFile, dati);
+            CsvManager.leggiCSV(percorsoFile, dati);
             caricaTabella(dati);
+            m.caricaAlloggi();
             
         }else {
             JOptionPane.showMessageDialog(this,"Nessun file selezionato!");
@@ -133,7 +134,7 @@ public class VendorHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Carica prima il file!");
             return;
         }
-        m.caricaAlloggi();
+        CsvManager.salvaAlloggi("Salva.csv",dati);
         JOptionPane.showMessageDialog(this, "Salvato!");
     }
     /**

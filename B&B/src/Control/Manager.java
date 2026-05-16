@@ -54,53 +54,56 @@ public class Manager {
         String proprietario;
         //9
         int  cod=0;
-            for(String[] riga:CsvManager.getDatiAlloggi()){
-                Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
-                
-                String[] valori = riga;
-                nome=valori[0];
-                localita=valori[1];
-                numeroCamere=Integer.parseInt(valori[2]);
-                prezzo=Double.parseDouble(valori[3]);
-                
-                valori[4]=valori[4].substring(1, valori[4].length()-2);
-                valori[4]=valori[4].substring(1, valori[4].length()-1);
-                servizi=new ArrayList<>();
-                for(String x: valori[4].split(",")){
-                    servizi.add(x);
-                }
-                tipoAlloggio=valori[5];
-                dateDisponibili=new Boolean[365];
-                Arrays.fill(dateDisponibili, true);
-                valori[6]=valori[6].substring(2, valori[6].length()-2);
-                valori[6]=valori[6].substring(2, valori[6].length()-1);
-                for(String x: valori[6].split(",")){
-                    dateDisponibili[this.giornoaIndice(x)]=false;
-                }
-                recensioni=new ArrayList<>();
-                valori[7]=valori[7].substring(1, valori[7].length()-2);
-                valori[7]=valori[7].substring(1, valori[7].length()-1);
-                for(String x: valori[7].split(",")){
-                    recensioni.add(Double.valueOf(x));
-                }
-               
-                proprietario=valori[8];
-                proprietario=valori[8].toLowerCase();
-                if(proprietari.get(proprietario)==null ){
-                    proprietari.put(proprietario, new Seller(null,"",""));
-                    proprietari.put(proprietario.toLowerCase(), new Seller(null,"",""));
-                }
-                alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
-                
-                proprietari.get(proprietario).aggiungiAlloggio(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
-                cod++;
-                
+        for(String[] riga:CsvManager.getDatiAlloggi()){
+            Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
+
+            String[] valori = riga;
+            nome=valori[0];
+            localita=valori[1];
+            numeroCamere=Integer.parseInt(valori[2]);
+            prezzo=Double.parseDouble(valori[3]);
+
+            valori[4]=valori[4].substring(1, valori[4].length()-2);
+            valori[4]=valori[4].substring(1, valori[4].length()-1);
+            servizi=new ArrayList<>();
+            for(String x: valori[4].split(",")){
+                servizi.add(x);
             }
+            tipoAlloggio=valori[5];
+            dateDisponibili=new Boolean[365];
+            Arrays.fill(dateDisponibili, true);
+            valori[6]=valori[6].substring(2, valori[6].length()-2);
+            for(String x: valori[6].split(",")){
+                dateDisponibili[this.giornoaIndice(x)]=false;
+            }
+            recensioni=new ArrayList<>();
+            valori[7]=valori[7].substring(1, valori[7].length()-2);
+            valori[7]=valori[7].substring(1, valori[7].length()-1);
+            for(String x: valori[7].split(",")){
+                recensioni.add(Double.valueOf(x));
+            }
+
+            proprietario=valori[8].toLowerCase();
+            if(proprietari.get(proprietario)==null ){
+                proprietari.put(proprietario, new Seller(null,"",""));
+                proprietari.put(proprietario.toLowerCase(), new Seller(null,"",""));
+            }
+            alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
+
+            proprietari.get(proprietario).aggiungiAlloggio(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
+            cod++;
+
+        }
             
     }
     
+    public void vediAlloggi(){
+        for(Housing x : alloggi){
+            System.out.println("ALLOGGI " + x.getLocalita());
+        }
+    }
+    
     public Manager() {
-        alloggi = new ArrayList<>();
         
     }
     private static ArrayList<Integer> mesi = new ArrayList<>(
@@ -124,9 +127,9 @@ public class Manager {
             }
         }
         return (1+indice-mesi.get(i))+"/"+(i+1)+"/"+annoCorrente;
-        
     }
-     public static <T> String toCSV(ArrayList<T> list) {
+     
+    public static <T> String toCSV(ArrayList<T> list) {
         StringBuilder sb = new StringBuilder();
 
         sb.append("{");
@@ -143,9 +146,11 @@ public class Manager {
 
         return sb.toString();
     }
+    
     public ArrayList<Housing> ricercaperLocalità(String Località){
         ArrayList<Housing> posti=new ArrayList<>();
         for(Housing x:alloggi){
+            System.out.println("sout" + x.getLocalita());
             if(x.getLocalita().equals(Località)){
                posti.add(x);
             }
@@ -159,31 +164,12 @@ public class Manager {
             }
         }return posti;
     }
-    public ArrayList<Housing> ricercaperServizio(String servizio){
-        ArrayList<Housing> posti=new ArrayList<>();
-        for(Housing x:alloggi){
-            if(x.haServizio(servizio)){
-                posti.add(x);
-            }
-        }return posti;
-    }
-    public ArrayList<Housing> ricercapernCamere(int numero){
-        ArrayList<Housing> posti=new ArrayList<>();
-        for(Housing x:alloggi){
-            if(x.haNumeroCamere(numero)){
-                posti.add(x);
-            }
-        }return posti;
-    }
-    public ArrayList<Housing> ricercaperProprietario(String p){
-     return proprietari.get(p).getAlloggiGestiti();
-    }
+
     public String[] alloggioaStringa(Housing a){
         return CsvManager.getDatiAlloggi().get(a.getCod());
     }
     public boolean creaPrenotazione(Client prenotante, String userName, String housingName, int firstDay, int lastDay, double price, Housing h){
        return prenotante.prenota(userName, housingName, firstDay, lastDay, price, h);
-       
     }
     
     public void caricaRegistrati(String path){

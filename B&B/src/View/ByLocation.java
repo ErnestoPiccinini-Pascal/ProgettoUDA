@@ -154,6 +154,7 @@ public class ByLocation extends javax.swing.JDialog {
             return;
         }
         // Lista housing trovati
+        m.vediAlloggi();
         ArrayList<Housing> risultati = m.ricercaperLocalità(testo);
         System.out.println("Trovati: " + risultati.size());
 
