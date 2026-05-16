@@ -10,13 +10,14 @@ import java.awt.Color;
  *
  * @author franc
  */
-public class Insert extends javax.swing.JDialog {
+public class InsertBuyer extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Insert.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InsertBuyer.class.getName());
+
     /**
-     * Creates new form Insert
+     * Creates new form InsertBuyer
      */
-    public Insert(java.awt.Frame parent, boolean modal) {
+    public InsertBuyer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -30,40 +31,34 @@ public class Insert extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        SaveChanges = new javax.swing.JButton();
+        nome = new javax.swing.JTextField();
         prezzo = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        location = new javax.swing.JTextField();
+        camere = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tipoAlloggio = new javax.swing.JTextField();
-        nome = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        location = new javax.swing.JTextField();
-        camere = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        SaveChanges = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        SaveChanges.setBackground(new java.awt.Color(121, 128, 238));
-        SaveChanges.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
-        SaveChanges.setText("Save changes");
-        SaveChanges.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                SaveChangesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SaveChangesMouseExited(evt);
-            }
-        });
-        SaveChanges.addActionListener(this::SaveChangesActionPerformed);
+        nome.setBackground(new java.awt.Color(213, 227, 237));
+        nome.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        nome.addActionListener(this::nomeActionPerformed);
 
         prezzo.setBackground(new java.awt.Color(213, 227, 237));
         prezzo.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        jLabel5.setText("Type of accommodation");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -84,6 +79,12 @@ public class Insert extends javax.swing.JDialog {
         ));
         jScrollPane3.setViewportView(jTable1);
 
+        location.setBackground(new java.awt.Color(213, 227, 237));
+        location.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        camere.setBackground(new java.awt.Color(213, 227, 237));
+        camere.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -103,6 +104,19 @@ public class Insert extends javax.swing.JDialog {
         ));
         jScrollPane4.setViewportView(jTable2);
 
+        jPanel1.setBackground(new java.awt.Color(237, 227, 63));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         jLabel1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel1.setText("Name");
 
@@ -119,31 +133,18 @@ public class Insert extends javax.swing.JDialog {
         tipoAlloggio.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         tipoAlloggio.addActionListener(this::tipoAlloggioActionPerformed);
 
-        nome.setBackground(new java.awt.Color(213, 227, 237));
-        nome.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        nome.addActionListener(this::nomeActionPerformed);
-
-        jLabel5.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel5.setText("Type of accommodation");
-
-        location.setBackground(new java.awt.Color(213, 227, 237));
-        location.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-
-        camere.setBackground(new java.awt.Color(213, 227, 237));
-        camere.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-
-        jPanel1.setBackground(new java.awt.Color(121, 128, 238));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        SaveChanges.setBackground(new java.awt.Color(121, 128, 238));
+        SaveChanges.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
+        SaveChanges.setText("Save changes");
+        SaveChanges.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SaveChangesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SaveChangesMouseExited(evt);
+            }
+        });
+        SaveChanges.addActionListener(this::SaveChangesActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,6 +213,14 @@ public class Insert extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeActionPerformed
+
+    private void tipoAlloggioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoAlloggioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoAlloggioActionPerformed
+
     private void SaveChangesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveChangesMouseEntered
         // TODO add your handling code here
         SaveChanges.setBackground(new Color(213, 227, 237));
@@ -227,14 +236,6 @@ public class Insert extends javax.swing.JDialog {
         getDatiAggiornati();
         this.dispose();
     }//GEN-LAST:event_SaveChangesActionPerformed
-
-    private void tipoAlloggioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoAlloggioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoAlloggioActionPerformed
-
-    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,7 +262,7 @@ public class Insert extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Insert dialog = new Insert(new javax.swing.JFrame(), true);
+                InsertBuyer dialog = new InsertBuyer(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -273,7 +274,7 @@ public class Insert extends javax.swing.JDialog {
         });
     }
     
-    public String[] getDatiAggiornati() {
+        public String[] getDatiAggiornati() {
         
         String recensioni = "";
         String[] dati = new String[8];
@@ -320,6 +321,7 @@ public class Insert extends javax.swing.JDialog {
 
         return dati;
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SaveChanges;
     private javax.swing.JTextField camere;

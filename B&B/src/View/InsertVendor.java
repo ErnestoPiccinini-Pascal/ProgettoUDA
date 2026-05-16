@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package View;
 
@@ -10,19 +10,15 @@ import java.awt.Color;
  *
  * @author franc
  */
-public class Edit extends javax.swing.JDialog {
+public class InsertVendor extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Edit.class.getName());
-    private String[] dati;
-    private String recensioni;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InsertVendor.class.getName());
     /**
-     * Creates new form Edit
+     * Creates new form Insert
      */
-    public Edit(java.awt.Frame parent, boolean modal) {
+    public InsertVendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
-        getContentPane().setBackground(new java.awt.Color(255, 255, 255));
     }
 
     /**
@@ -34,72 +30,24 @@ public class Edit extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nome = new javax.swing.JTextField();
-        location = new javax.swing.JTextField();
-        camere = new javax.swing.JTextField();
+        SaveChanges = new javax.swing.JButton();
         prezzo = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tipoAlloggio = new javax.swing.JTextField();
+        nome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        location = new javax.swing.JTextField();
+        camere = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        SaveChanges = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
 
-        nome.setBackground(new java.awt.Color(213, 227, 237));
-        nome.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        nome.setText("jTextField1");
-        nome.addActionListener(this::nomeActionPerformed);
-
-        location.setBackground(new java.awt.Color(213, 227, 237));
-        location.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        location.setText("jTextField2");
-
-        camere.setBackground(new java.awt.Color(213, 227, 237));
-        camere.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        camere.setText("jTextField3");
-
-        prezzo.setBackground(new java.awt.Color(213, 227, 237));
-        prezzo.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        prezzo.setText("jTextField4");
-
-        jLabel1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel1.setText("Name");
-
-        jLabel2.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel2.setText("Location");
-
-        jLabel3.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel3.setText("Rooms");
-
-        jLabel4.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel4.setText("Price");
-
-        tipoAlloggio.setBackground(new java.awt.Color(213, 227, 237));
-        tipoAlloggio.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        tipoAlloggio.setText("jTextField4");
-        tipoAlloggio.addActionListener(this::tipoAlloggioActionPerformed);
-
-        jLabel5.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel5.setText("Type of accommodation");
-
-        jPanel1.setBackground(new java.awt.Color(121, 128, 238));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         SaveChanges.setBackground(new java.awt.Color(121, 128, 238));
         SaveChanges.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
@@ -114,8 +62,17 @@ public class Edit extends javax.swing.JDialog {
         });
         SaveChanges.addActionListener(this::SaveChangesActionPerformed);
 
+        prezzo.setBackground(new java.awt.Color(213, 227, 237));
+        prezzo.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
                 {null},
                 {null},
                 {null},
@@ -132,6 +89,12 @@ public class Edit extends javax.swing.JDialog {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
@@ -139,6 +102,48 @@ public class Edit extends javax.swing.JDialog {
             }
         ));
         jScrollPane4.setViewportView(jTable2);
+
+        jLabel1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        jLabel1.setText("Name");
+
+        jLabel2.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        jLabel2.setText("Location");
+
+        jLabel3.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        jLabel3.setText("Rooms");
+
+        jLabel4.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        jLabel4.setText("Price");
+
+        tipoAlloggio.setBackground(new java.awt.Color(213, 227, 237));
+        tipoAlloggio.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        tipoAlloggio.addActionListener(this::tipoAlloggioActionPerformed);
+
+        nome.setBackground(new java.awt.Color(213, 227, 237));
+        nome.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        nome.addActionListener(this::nomeActionPerformed);
+
+        jLabel5.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+        jLabel5.setText("Type of accommodation");
+
+        location.setBackground(new java.awt.Color(213, 227, 237));
+        location.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        camere.setBackground(new java.awt.Color(213, 227, 237));
+        camere.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
+
+        jPanel1.setBackground(new java.awt.Color(121, 128, 238));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,14 +212,6 @@ public class Edit extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeActionPerformed
-
-    private void tipoAlloggioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoAlloggioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoAlloggioActionPerformed
-
     private void SaveChangesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveChangesMouseEntered
         // TODO add your handling code here
         SaveChanges.setBackground(new Color(213, 227, 237));
@@ -230,6 +227,14 @@ public class Edit extends javax.swing.JDialog {
         getDatiAggiornati();
         this.dispose();
     }//GEN-LAST:event_SaveChangesActionPerformed
+
+    private void tipoAlloggioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoAlloggioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoAlloggioActionPerformed
+
+    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,46 +257,26 @@ public class Edit extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-       java.awt.EventQueue.invokeLater(() -> {new Edit(null, true).setVisible(true);});
-    }
-    
-    public void setDati(String[] datiRiga) {
-
-        dati=datiRiga;
-        
-        nome.setText(datiRiga[0]);
-        location.setText(datiRiga[1]);
-        camere.setText(datiRiga[2]);
-        prezzo.setText(datiRiga[3]);
-        tipoAlloggio.setText(datiRiga[5]);
-        recensioni=datiRiga[7];
-        
-        String serv = datiRiga[4].replace("{", "").replace("}", "").replace("\"", "");
-        String[] elementi1 = serv.split(",");
-
-        javax.swing.table.DefaultTableModel modelServizi = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-
-        modelServizi.setRowCount(0);
-
-        for(String s : elementi1){
-            modelServizi.addRow(new Object[]{s.trim()});
-        }
-
-        String disp = datiRiga[6].replace("{", "").replace("}", "").replace("\"", "");
-        String[] elementi2 = disp.split(",");
-
-        javax.swing.table.DefaultTableModel modelAvailability = (javax.swing.table.DefaultTableModel) jTable2.getModel();
-
-        modelAvailability.setRowCount(0);
-
-        for(String s : elementi2){
-            modelAvailability.addRow(new Object[]{s.trim()});
-        }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                InsertVendor dialog = new InsertVendor(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
     }
     
     public String[] getDatiAggiornati() {
-
+        
+        String recensioni = "";
+        String[] dati = new String[8];
         dati[0] = nome.getText();
         dati[1] = location.getText();
         dati[2] = camere.getText();
@@ -301,42 +286,40 @@ public class Edit extends javax.swing.JDialog {
 
         // SERVICES
         javax.swing.table.DefaultTableModel model1 = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
         String serv = "{";
 
         for (int i = 0; i < model1.getRowCount(); i++) {
-            Object valore = model1.getValueAt(i, 0);
-            if (valore != null && !valore.toString().isBlank()) {
-
-                serv += valore.toString();
-                if (i < model1.getRowCount() - 1) {
-                    serv += ",";
-                }
+            Object v = model1.getValueAt(i, 0);
+            if (v != null && !v.toString().isBlank()) {
+                serv += v.toString();
+                if (i < model1.getRowCount() - 1) serv += ",";
             }
         }
 
         serv += "}";
+
         dati[4] = serv;
-        
+
+        // UNAVAILABILITY
         javax.swing.table.DefaultTableModel model2 = (javax.swing.table.DefaultTableModel) jTable2.getModel();
-        String available = "{";
+
+        String disp = "{";
 
         for (int i = 0; i < model2.getRowCount(); i++) {
-
-            Object valore = model2.getValueAt(i, 0);
-            if (valore != null && !valore.toString().isBlank()) {
-
-                available += valore.toString();
-                if (i < model2.getRowCount() - 1) {
-                    available += ",";
-                }
+            Object v = model2.getValueAt(i, 0);
+            if (v != null && !v.toString().isBlank()) {
+                disp += v.toString();
+                if (i < model2.getRowCount() - 1) disp += ",";
             }
         }
 
-        available += "}";
-        dati[6] = available;
+        disp += "}";
+
+        dati[6] = disp;
+
         return dati;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SaveChanges;
     private javax.swing.JTextField camere;

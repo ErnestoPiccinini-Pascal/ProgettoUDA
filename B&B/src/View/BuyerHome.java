@@ -371,7 +371,7 @@ public class BuyerHome extends javax.swing.JFrame {
             return;
         }
 
-        Insert ins = new Insert(this, true);
+        InsertVendor ins = new InsertVendor(this, true);
         ins.setVisible(true);
 
         String[] nuovo = ins.getDatiAggiornati();

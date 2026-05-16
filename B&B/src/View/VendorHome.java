@@ -112,7 +112,7 @@ public class VendorHome extends javax.swing.JFrame {
 
         String[] datiRiga = dati.get(riga);
 
-        Edit e = new Edit(this, true);
+        EditVendor e = new EditVendor(this, true);
         e.setDati(datiRiga);
         e.setVisible(true);
 
@@ -364,7 +364,7 @@ public class VendorHome extends javax.swing.JFrame {
             return;
         }
         
-        Insert ins = new Insert(this, true);
+        InsertVendor ins = new InsertVendor(this, true);
         ins.setVisible(true);
 
         String[] nuovo = ins.getDatiAggiornati();
