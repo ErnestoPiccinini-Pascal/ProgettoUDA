@@ -14,19 +14,34 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author franc
  */
-public class ByLocation extends javax.swing.JDialog {
+public class ByPriceVendor extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ByLocation.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ByPriceVendor.class.getName());
     private Manager m;
     /**
-     * Creates new form ByName
+     * Creates new form ByPrice
      */
-    public ByLocation(java.awt.Frame parent, boolean modal) {
+    public ByPriceVendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         m = new Manager();
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
+        
+        jTable1.getTableHeader().setOpaque(true);
+        jTable1.getTableHeader().setBackground(new java.awt.Color(121, 128, 238));
+        jTable1.setRowHeight(30);
+        
+        // linee tabella
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(new java.awt.Color(200,200,200));
+
+        // sfondo scrollpane
+        jScrollPane1.getViewport().setBackground(java.awt.Color.WHITE);
+        
+        // bordo scrollpane
+        jScrollPane1.setBorder(null);
+        
     }
 
     /**
@@ -78,7 +93,7 @@ public class ByLocation extends javax.swing.JDialog {
         nome.addActionListener(this::nomeActionPerformed);
 
         jLabel1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
-        jLabel1.setText("Choose a name");
+        jLabel1.setText("Choose a price ");
 
         SaveChanges.setBackground(new java.awt.Color(121, 128, 238));
         SaveChanges.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
@@ -118,13 +133,13 @@ public class ByLocation extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -153,8 +168,10 @@ public class ByLocation extends javax.swing.JDialog {
             javax.swing.JOptionPane.showMessageDialog(this,"Riempire il campo nome!","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
+        Double prezzo = Double.valueOf(nome.getText().trim());
+        
         // Lista housing trovati
-        ArrayList<Housing> risultati = m.ricercaperLocalità(testo);
+        ArrayList<Housing> risultati = m.ricercaperPrezzoMin(prezzo);
         System.out.println("Trovati: " + risultati.size());
 
         // Lista da dare alla JTable
@@ -173,8 +190,8 @@ public class ByLocation extends javax.swing.JDialog {
 
         DefaultTableModel model = new DefaultTableModel();
         String[] colonne = {
-            "Nome", "Località", "Camere", "Prezzo",
-            "Servizi", "Tipo", "Disponibilità", "Recensioni", "Proprietario"
+            "Name", "Location", "Rooms", "Price",
+            "Services", "Type", "Unavailability", "Reviews", "Owner"
         };
         model.setColumnIdentifiers(colonne);
         for (String[] riga : dati) {
@@ -182,6 +199,7 @@ public class ByLocation extends javax.swing.JDialog {
         }
         jTable1.setModel(model);
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -207,7 +225,7 @@ public class ByLocation extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ByLocation dialog = new ByLocation(new javax.swing.JFrame(), true);
+                ByPriceVendor dialog = new ByPriceVendor(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

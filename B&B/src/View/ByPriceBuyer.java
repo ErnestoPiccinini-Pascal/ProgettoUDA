@@ -14,21 +14,51 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author franc
  */
-public class ByPrice extends javax.swing.JDialog {
+public class ByPriceBuyer extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ByPrice.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ByPriceBuyer.class.getName());
     private Manager m;
+    
     /**
-     * Creates new form ByPrice
+     * Creates new form ByPriceBuyer
      */
-    public ByPrice(java.awt.Frame parent, boolean modal) {
+    public ByPriceBuyer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         m = new Manager();
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
+        
+        jTable1.getTableHeader().setOpaque(true);
+        jTable1.getTableHeader().setBackground(new java.awt.Color(121, 128, 238));
+        jTable1.setRowHeight(30);
+        
+        // linee tabella
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(new java.awt.Color(200,200,200));
+
+        // sfondo scrollpane
+        jScrollPane1.getViewport().setBackground(java.awt.Color.WHITE);
+        
+        // bordo scrollpane
+        jScrollPane1.setBorder(null);
+        
     }
 
+    private void caricaTabella(ArrayList<String[]> dati) {
+
+        DefaultTableModel model = new DefaultTableModel();
+        String[] colonne = {
+            "Name", "Location", "Rooms", "Price",
+            "Services", "Type", "Unavailability", "Reviews", "Owner"
+        };
+        model.setColumnIdentifiers(colonne);
+        for (String[] riga : dati) {
+            model.addRow(riga);
+        }
+        jTable1.setModel(model);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,7 +90,7 @@ public class ByPrice extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.setBackground(new java.awt.Color(121, 128, 238));
+        jPanel1.setBackground(new java.awt.Color(237, 227, 63));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,7 +110,7 @@ public class ByPrice extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Lato Semibold", 0, 12)); // NOI18N
         jLabel1.setText("Choose a price");
 
-        SaveChanges.setBackground(new java.awt.Color(121, 128, 238));
+        SaveChanges.setBackground(new java.awt.Color(237, 227, 63));
         SaveChanges.setFont(new java.awt.Font("Lato Semibold", 0, 24)); // NOI18N
         SaveChanges.setText("Search");
         SaveChanges.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -118,13 +148,13 @@ public class ByPrice extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -138,12 +168,12 @@ public class ByPrice extends javax.swing.JDialog {
 
     private void SaveChangesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveChangesMouseEntered
         // TODO add your handling code here
-        SaveChanges.setBackground(new Color(213, 227, 237));
+        SaveChanges.setBackground(new Color(255, 255, 204));
     }//GEN-LAST:event_SaveChangesMouseEntered
 
     private void SaveChangesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveChangesMouseExited
         // TODO add your handling code here:
-        SaveChanges.setBackground(new Color(121, 128, 238));
+        SaveChanges.setBackground(new Color(237, 227, 63));
     }//GEN-LAST:event_SaveChangesMouseExited
 
     private void SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesActionPerformed
@@ -171,20 +201,6 @@ public class ByPrice extends javax.swing.JDialog {
         caricaTabella(dati);
     }//GEN-LAST:event_SaveChangesActionPerformed
 
-    private void caricaTabella(ArrayList<String[]> dati) {
-
-        DefaultTableModel model = new DefaultTableModel();
-        String[] colonne = {
-            "Nome", "Località", "Camere", "Prezzo",
-            "Servizi", "Tipo", "Disponibilità", "Recensioni", "Proprietario"
-        };
-        model.setColumnIdentifiers(colonne);
-        for (String[] riga : dati) {
-            model.addRow(riga);
-        }
-        jTable1.setModel(model);
-    }
-    
     /**
      * @param args the command line arguments
      */
@@ -210,7 +226,7 @@ public class ByPrice extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ByPrice dialog = new ByPrice(new javax.swing.JFrame(), true);
+                ByPriceBuyer dialog = new ByPriceBuyer(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
