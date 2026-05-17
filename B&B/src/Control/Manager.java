@@ -94,6 +94,10 @@ public class Manager {
             
     }
 
+    public static void setUtenteAtt(String utenteAtt) {
+        Manager.utenteAtt = utenteAtt;
+    }
+
     public static ArrayList<Housing> getAlloggi() {
         return alloggi;
     }
@@ -161,12 +165,34 @@ public class Manager {
             }
         }return posti;
     }
-    public ArrayList<Housing> ricercaperProprietario(String p){
-     return proprietari.get(p).getAlloggiGestiti();
+    public ArrayList<String[]> ricercaperProprietario(String p){
+        ArrayList<String[]> s=new ArrayList<>();
+      for(Housing x:proprietari.get(p).getAlloggiGestiti()){
+          s.add(this.alloggioaStringa(x));
+      }
+      return s;
     }
 
     public String[] alloggioaStringa(Housing a){
-        return CsvManager.getDatiAlloggi().get(a.getCod());
+       String[] dati = new String[10];
+
+        dati[0] = a.getNome();
+        dati[1] = a.getLocalita();
+        dati[2] = String.valueOf(a.getNumeroCamere());
+        dati[3] = String.valueOf(a.getPrezzo());
+
+        dati[4] = a.getServizi().toString();
+
+        dati[5] = a.getTipoAlloggio();
+
+        dati[6] = Arrays.toString(a.getDateDisponibili());
+
+        dati[7] = a.getRecensioni().toString();
+
+        dati[8] = a.getProprietario();
+        dati[9] = String.valueOf(a.getCod());
+
+        return dati;
     }
     
     public static void caricaRegistrati(String path){
@@ -175,7 +201,9 @@ public class Manager {
     }
     
     public void delete(int indice){
+        proprietari.get(utenteAtt).getAlloggiGestiti().remove(indice);
         CsvManager.getDatiAlloggi().remove(indice);
+        //alloggi.remove(indice);
         this.caricaAlloggi();
     }
    

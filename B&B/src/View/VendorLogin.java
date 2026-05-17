@@ -268,6 +268,7 @@ public class VendorLogin extends javax.swing.JFrame {
         }
         
         Manager.caricaRegistrati("config.ini");
+        Manager.setUtenteAtt(username);
         if(m.getRegistrati().get(username)==null){
             javax.swing.JOptionPane.showMessageDialog(this,"Password o username errati","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
         }

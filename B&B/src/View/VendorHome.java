@@ -6,6 +6,7 @@ package View;
 
 import Control.CsvManager;
 import Control.Manager;
+import Model.Housing;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -71,7 +72,9 @@ public class VendorHome extends javax.swing.JFrame {
             percorsoFile = file.getAbsolutePath();
             dati = CsvManager.getDatiAlloggi();
             CsvManager.leggiCSV(percorsoFile, dati);
-            caricaTabella(dati);
+            m.caricaAlloggi();
+            dati=m.ricercaperProprietario(Manager.getUtenteAtt());
+            caricaTabella(m.ricercaperProprietario(Manager.getUtenteAtt()));
             m.caricaAlloggi();      
         }else {
             JOptionPane.showMessageDialog(this,"Nessun file selezionato!");
@@ -110,7 +113,7 @@ public class VendorHome extends javax.swing.JFrame {
             return;
         }
 
-        String[] datiRiga = dati.get(riga);
+        String[] datiRiga = m.ricercaperProprietario(Manager.getUtenteAtt()).get(riga);
 
         EditVendor e = new EditVendor(this, true);
         e.setDati(datiRiga);
