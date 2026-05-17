@@ -10,7 +10,6 @@ import Model.Housing;
 import Model.Seller;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -35,7 +34,7 @@ public class VendorHome extends javax.swing.JFrame {
         
         jTable1.getTableHeader().setOpaque(true);
         jTable1.getTableHeader().setBackground(new java.awt.Color(121, 128, 238));
-        jTable1.setRowHeight(30);
+        jTable1.setRowHeight(40);
         
         // linee tabella
         jTable1.setShowGrid(true);
@@ -231,15 +230,15 @@ public class VendorHome extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(579, 579, 579)
-                .addComponent(jLabel2)
-                .addContainerGap(517, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(517, 517, 517))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel2)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(40, 40, 40))
         );
 
         jMenu1.setText("File");
