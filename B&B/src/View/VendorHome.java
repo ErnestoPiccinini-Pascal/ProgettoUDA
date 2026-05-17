@@ -7,8 +7,11 @@ package View;
 import Control.CsvManager;
 import Control.Manager;
 import Model.Housing;
+import Model.Seller;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -51,14 +54,19 @@ public class VendorHome extends javax.swing.JFrame {
     private void caricaTabella(ArrayList<String[]> dati) {
 
         DefaultTableModel model = new DefaultTableModel();
+
         String[] colonne = {
             "Name", "Location", "Rooms", "Price",
             "Services", "Type", "Unavailability", "Reviews", "Owner"
         };
+
         model.setColumnIdentifiers(colonne);
+        model.setRowCount(0); // 🔥 IMPORTANTISSIMO
+
         for (String[] riga : dati) {
             model.addRow(riga);
         }
+
         jTable1.setModel(model);
     }
     
@@ -83,22 +91,34 @@ public class VendorHome extends javax.swing.JFrame {
 
     private void eliminaRiga() {
 
-        if (dati == null) {
-            JOptionPane.showMessageDialog(this, "Carica prima il file!");
-            return;
-        }
         int riga = jTable1.getSelectedRow();
+
         if (riga == -1) {
             JOptionPane.showMessageDialog(this, "Seleziona una riga!");
             return;
         }
-        dati.remove(riga);
-        ((DefaultTableModel) jTable1.getModel()).removeRow(riga);
+
+        ArrayList<Housing> lista =
+                m.getProprietari()
+                 .get(Manager.getUtenteAtt())
+                 .getAlloggiGestiti();
+
+        if (riga >= lista.size()) {
+            JOptionPane.showMessageDialog(this, "Indice non valido!");
+            return;
+        }
+
+        Housing h = lista.get(riga);
+
+        m.delete(h);
+
+        // 🔥 NON toccare dati manualmente
+        dati = m.ricercaperProprietario(Manager.getUtenteAtt());
+        caricaTabella(dati);
+
         JOptionPane.showMessageDialog(this, "Elemento eliminato!");
-        
-        m.delete(riga);
     }
-    
+
     private void modificaRiga() {
 
         if (dati == null) {
@@ -122,8 +142,9 @@ public class VendorHome extends javax.swing.JFrame {
         String[] aggiornato = e.getDatiAggiornati();
 
         dati.set(riga, aggiornato);
-
-        for (int i = 0; i < aggiornato.length; i++) {
+        Map<String, Seller> h =  m.getProprietari();//m.ricercaperProprietario(Manager.getUtenteAtt()).get(riga))
+        m.modificaAlloggio(aggiornato,h.get(Manager.getUtenteAtt()).getAlloggiGestiti().get(riga));
+        for (int i = 0; i < aggiornato.length-1; i++) {
             jTable1.setValueAt(aggiornato[i], riga, i);
         }
     }
@@ -134,7 +155,7 @@ public class VendorHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Carica prima il file!");
             return;
         }
-        CsvManager.salvaAlloggi("Salva.csv",dati);
+        CsvManager.salvaAlloggi("Salva.csv",CsvManager.getDatiAlloggi());
         JOptionPane.showMessageDialog(this, "Salvato!");
     }
     /**
@@ -362,19 +383,23 @@ public class VendorHome extends javax.swing.JFrame {
 
     private void InsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertActionPerformed
         // TODO add your handling code here:
-        if (dati == null) {
-            JOptionPane.showMessageDialog(this, "Carica prima il file!");
-            return;
+         if (dati == null) {
+        JOptionPane.showMessageDialog(this, "Carica prima il file!");
+        return;
         }
-        
+
         InsertVendor ins = new InsertVendor(this, true);
         ins.setVisible(true);
 
         String[] nuovo = ins.getDatiAggiornati();
 
         if (nuovo == null) return;
-        dati.add(nuovo);
-        ((DefaultTableModel) jTable1.getModel()).addRow(nuovo);
+
+        m.inserisciAlloggio(nuovo);
+
+        dati = m.ricercaperProprietario(Manager.getUtenteAtt());
+
+        caricaTabella(dati);
     }//GEN-LAST:event_InsertActionPerformed
 
     private void ByLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ByLocationActionPerformed

@@ -4,6 +4,7 @@
  */
 package View;
 
+import Control.Manager;
 import java.awt.Color;
 
 /**
@@ -298,7 +299,8 @@ public class EditVendor extends javax.swing.JDialog {
         dati[3] = prezzo.getText();
         dati[5] = tipoAlloggio.getText();
         dati[7] = recensioni;
-
+        dati[8] = Manager.getUtenteAtt();
+        //dati[9] ="0";
         // SERVICES
         javax.swing.table.DefaultTableModel model1 = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         String serv = "{";

@@ -27,6 +27,22 @@ public class Manager {
     
     private static Map<String,String> registrati=new HashMap<>();
 
+    public static Map<String, Client> getClienti() {
+        return clienti;
+    }
+
+    public CsvManager getCsv() {
+        return csv;
+    }
+
+    public static int getAnnoCorrente() {
+        return annoCorrente;
+    }
+
+    public static ArrayList<Integer> getMesi() {
+        return mesi;
+    }
+
     private static Map<String, Seller> proprietari = new HashMap<>();
     private static Map<String, Client> clienti = new HashMap<>();
     private CsvManager csv=new CsvManager();
@@ -34,65 +50,78 @@ public class Manager {
     private static int annoCorrente=2026;
     //----------------------------------------------- ALLOGGI------------------------------------
     public void caricaAlloggi() {
-        alloggi=new ArrayList<>();
-        //0
-        String nome;
-        //1
-        String localita;
-        //2
-        int numeroCamere;
-        //3
-        double prezzo;
-        //4
-        ArrayList<String> servizi;
-        //5
-        String tipoAlloggio;
-        //6
-        Boolean[] dateDisponibili;
-        //7
-        ArrayList<Double> recensioni;
-        //8
-        String proprietario;
-        //9
-        int  cod=0;
-        for(String[] riga:CsvManager.getDatiAlloggi()){
-            Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
-            Arrays.setAll(riga, i -> riga[i].replace("{", "").trim());
-            Arrays.setAll(riga, i -> riga[i].replace("}", "").trim());
-            String[] valori = riga;
-            nome=valori[0];
-            localita=valori[1];
-            numeroCamere=Integer.parseInt(valori[2]);
-            prezzo=Double.parseDouble(valori[3]);
 
-            servizi=new ArrayList<>();
-            for(String x: valori[4].split(",")){
-                servizi.add(x);
-            }
-            tipoAlloggio=valori[5];
-            dateDisponibili=new Boolean[365];
-            Arrays.fill(dateDisponibili, true);
-            for(String x: valori[6].split(",")){
-                dateDisponibili[this.giornoaIndice(x)]=false;
-            }
-            recensioni=new ArrayList<>();
-            for(String x: valori[7].split(",")){
-                recensioni.add(Double.valueOf(x));
-            }
+    alloggi = new ArrayList<>();
+    proprietari = new HashMap<>(); // 🔥 IMPORTANTISSIMO RESET
 
-            proprietario=valori[8].toLowerCase();
-            if(proprietari.get(proprietario)==null ){
-                proprietari.put(proprietario, new Seller(null,"",""));
-                proprietari.put(proprietario.toLowerCase(), new Seller(null,"",""));
+    // 0
+    String nome;
+    String localita;
+    int numeroCamere;
+    double prezzo;
+    ArrayList<String> servizi;
+    String tipoAlloggio;
+    Boolean[] dateDisponibili;
+    ArrayList<Double> recensioni;
+    String proprietario;
+
+    int cod = 0;
+
+    for (String[] riga : CsvManager.getDatiAlloggi()) {
+
+        Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
+        Arrays.setAll(riga, i -> riga[i].replace("{", "").trim());
+        Arrays.setAll(riga, i -> riga[i].replace("}", "").trim());
+
+        nome = riga[0];
+        localita = riga[1];
+        numeroCamere = Integer.parseInt(riga[2]);
+        prezzo = Double.parseDouble(riga[3]);
+
+        servizi = new ArrayList<>();
+        if (!riga[4].isBlank()) {
+            for (String x : riga[4].split(",")) {
+                servizi.add(x.trim());
             }
-            alloggi.add(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
-
-            proprietari.get(proprietario).aggiungiAlloggio(new Housing(nome,localita,numeroCamere,prezzo,servizi,tipoAlloggio,dateDisponibili,recensioni,proprietario,cod));
-            cod++;
-
         }
-            
+
+        tipoAlloggio = riga[5];
+
+        dateDisponibili = new Boolean[365];
+        Arrays.fill(dateDisponibili, true);
+
+        if (!riga[6].isBlank()) {
+            for (String x : riga[6].split(",")) {
+                dateDisponibili[giornoaIndice(x.trim())] = false;
+            }
+        }
+
+        recensioni = new ArrayList<>();
+        if (!riga[7].isBlank()) {
+            for (String x : riga[7].split(",")) {
+                recensioni.add(Double.valueOf(x.trim()));
+            }
+        }
+
+        proprietario = riga[8].toLowerCase();
+
+        if (!proprietari.containsKey(proprietario)) {
+            proprietari.put(proprietario, new Seller(null, "", ""));
+        }
+
+        Housing h = new Housing(
+                nome, localita, numeroCamere, prezzo,
+                servizi, tipoAlloggio,
+                dateDisponibili, recensioni,
+                proprietario, cod
+        );
+
+        alloggi.add(h);
+        proprietari.get(proprietario).aggiungiAlloggio(h);
+
+        cod++;
     }
+}
 
     public static void setUtenteAtt(String utenteAtt) {
         Manager.utenteAtt = utenteAtt;
@@ -184,13 +213,18 @@ public class Manager {
         dati[4] = a.getServizi().toString();
 
         dati[5] = a.getTipoAlloggio();
-
-        dati[6] = Arrays.toString(a.getDateDisponibili());
+        ArrayList<String> date=new ArrayList<>();
+        for(int i=0;i<365;i++){
+            if(!a.getDateDisponibili()[i]){
+                date.add(Manager.indiceaGiorno(i));
+            }
+        }
+        dati[6] = Arrays.toString(date.toArray());
 
         dati[7] = a.getRecensioni().toString();
 
         dati[8] = a.getProprietario();
-        dati[9] = String.valueOf(a.getCod());
+        //dati[9] = String.valueOf(a.getCod());
 
         return dati;
     }
@@ -200,19 +234,236 @@ public class Manager {
         registrati=CsvManager.getDatiRegistrati();
     }
     
-    public void delete(int indice){
-        proprietari.get(utenteAtt).getAlloggiGestiti().remove(indice);
-        CsvManager.getDatiAlloggi().remove(indice);
-        //alloggi.remove(indice);
-        this.caricaAlloggi();
+    public void delete(Housing daEliminare) {
+
+        // RIMUOVE DA LISTA GLOBALE
+        alloggi.removeIf(h ->
+                h.getCod() == daEliminare.getCod()
+        );
+
+        // RIMUOVE DAL PROPRIETARIO
+        if (proprietari.get(daEliminare.getProprietario()) != null) {
+            proprietari.get(daEliminare.getProprietario())
+                    .getAlloggiGestiti()
+                    .removeIf(h ->
+                            h.getCod() == daEliminare.getCod()
+                    );
+        }
+
+        // RIMUOVE DAL CSV (IN MEMORIA)
+        CsvManager.getDatiAlloggi().removeIf(riga -> {
+
+            if (riga == null || riga.length < 9) {
+                return false;
+            }
+
+            return riga[0].equalsIgnoreCase(daEliminare.getNome())
+                    && riga[8].equalsIgnoreCase(daEliminare.getProprietario());
+        });
     }
    
-    public void modificaAlloggio(int indice, Housing nuovo) {
-        alloggi.set(indice, nuovo);
-        String[] s= CsvManager.getDatiAlloggi().set(indice, this.alloggioaStringa(nuovo));
-         List<String> g=Arrays.asList(s);
-        CsvManager.setDatiAlloggi(CsvManager.getDatiAlloggi());
-    
+    public void modificaAlloggio(String[] valori, Housing vecchio) {
+
+        // PULIZIA STRINGHE
+        for (int i = 0; i < valori.length; i++) {
+
+            if (valori[i] != null) {
+
+                valori[i] = valori[i]
+                        .replace("\"", "")
+                        .replace("{", "")
+                        .replace("}", "")
+                        .replace("[", "")
+                        .replace("]", "")
+                        .trim();
+            }
+        }
+
+        // DATI BASE
+        String nome = valori[0];
+        String localita = valori[1];
+        int numeroCamere = Integer.parseInt(valori[2]);
+        double prezzo = Double.parseDouble(valori[3]);
+
+        // SERVIZI
+        ArrayList<String> servizi = new ArrayList<>();
+
+        if (!valori[4].isBlank()) {
+
+            for (String x : valori[4].split(",")) {
+                servizi.add(x.trim());
+            }
+        }
+
+        // TIPO
+        String tipoAlloggio = valori[5];
+
+        // DATE
+        Boolean[] dateDisponibili = new Boolean[365];
+        Arrays.fill(dateDisponibili, true);
+
+        if (!valori[6].isBlank()) {
+
+            for (String x : valori[6].split(",")) {
+
+                x = x.trim();
+
+                if (!x.isBlank()) {
+                    dateDisponibili[this.giornoaIndice(x)] = false;
+                }
+            }
+        }
+
+        // RECENSIONI
+        ArrayList<Double> recensioni = new ArrayList<>();
+
+        if (!valori[7].isBlank()) {
+
+            for (String x : valori[7].split(",")) {
+
+                x = x.trim();
+
+                if (!x.isBlank()) {
+                    recensioni.add(Double.valueOf(x));
+                }
+            }
+        }
+
+        // CREA NUOVO ALLOGGIO
+        Housing nuovo = new Housing(
+                nome,
+                localita,
+                numeroCamere,
+                prezzo,
+                servizi,
+                tipoAlloggio,
+                dateDisponibili,
+                recensioni,
+                vecchio.getProprietario(),
+                vecchio.getCod()
+        );
+
+        // AGGIORNA LISTA GLOBALE
+        for (int i = 0; i < alloggi.size(); i++) {
+
+            if (alloggi.get(i).getCod() == vecchio.getCod()) {
+
+                alloggi.set(i, nuovo);
+                break;
+            }
+        }
+
+        // AGGIORNA LISTA DEL PROPRIETARIO
+        ArrayList<Housing> lista =
+                proprietari.get(vecchio.getProprietario())
+                        .getAlloggiGestiti();
+
+        for (int i = 0; i < lista.size(); i++) {
+
+            if (lista.get(i).getCod() == vecchio.getCod()) {
+
+                lista.set(i, nuovo);
+                break;
+            }
+        }
+
+        // AGGIORNA DATI CSV IN MEMORIA
+        for (int i = 0; i < CsvManager.getDatiAlloggi().size(); i++) {
+
+            String[] riga = CsvManager.getDatiAlloggi().get(i);
+
+            if (riga[0].equalsIgnoreCase(vecchio.getNome())
+                    && riga[8].equalsIgnoreCase(vecchio.getProprietario())) {
+
+                CsvManager.getDatiAlloggi().set(i, valori);
+                break;
+            }
+        }
+    }
+    public void inserisciAlloggio(String[] valori) {
+
+    for (int i = 0; i < valori.length; i++) {
+
+            if (valori[i] != null) {
+
+                valori[i] = valori[i]
+                        .replace("\"", "")
+                        .replace("{", "")
+                        .replace("}", "")
+                        .replace("[", "")
+                        .replace("]", "")
+                        .trim();
+            }
+        }
+
+        String nome = valori[0];
+        String localita = valori[1];
+        int numeroCamere = Integer.parseInt(valori[2]);
+        double prezzo = Double.parseDouble(valori[3]);
+
+        ArrayList<String> servizi = new ArrayList<>();
+
+        if (!valori[4].isBlank()) {
+
+            for (String x : valori[4].split(",")) {
+                servizi.add(x.trim());
+            }
+        }
+
+        String tipoAlloggio = valori[5];
+
+        Boolean[] dateDisponibili = new Boolean[365];
+        Arrays.fill(dateDisponibili, true);
+
+        if (!valori[6].isBlank()) {
+
+            for (String x : valori[6].split(",")) {
+
+                x = x.trim();
+
+                if (!x.isBlank()) {
+                    dateDisponibili[this.giornoaIndice(x)] = false;
+                }
+            }
+        }
+
+        ArrayList<Double> recensioni = new ArrayList<>();
+
+        if (!valori[7].isBlank()) {
+
+            for (String x : valori[7].split(",")) {
+
+                x = x.trim();
+
+                if (!x.isBlank()) {
+                    recensioni.add(Double.valueOf(x));
+                }
+            }
+        }
+
+        int cod = alloggi.size();
+
+        Housing nuovo = new Housing(
+                nome,
+                localita,
+                numeroCamere,
+                prezzo,
+                servizi,
+                tipoAlloggio,
+                dateDisponibili,
+                recensioni,
+                Manager.getUtenteAtt(),
+                cod
+        );
+
+        // AGGIUNTA LISTE
+        alloggi.add(nuovo);
+
+        proprietari.get(Manager.getUtenteAtt())
+                .aggiungiAlloggio(nuovo);
+
+        // AGGIUNTA CSV
+        CsvManager.getDatiAlloggi().add(valori);
     }
 
     public Map<String, String> getRegistrati() {
