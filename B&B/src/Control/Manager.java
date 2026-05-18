@@ -9,7 +9,6 @@ import Model.Seller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,7 +45,7 @@ public class Manager {
     public void caricaAlloggi() {
 
     alloggi = new ArrayList<>();
-    proprietari = new HashMap<>(); // 🔥 IMPORTANTISSIMO RESET
+    proprietari = new HashMap<>(); 
 
     // 0
     String nome;
@@ -190,9 +189,9 @@ public class Manager {
     }
     public ArrayList<String[]> ricercaperProprietario(String p){
         ArrayList<String[]> s=new ArrayList<>();
-      for(Housing x:proprietari.get(p).getAlloggiGestiti()){
-          s.add(this.alloggioaStringa(x));
-      }
+        for(Housing x:proprietari.get(p).getAlloggiGestiti()){
+            s.add(this.alloggioaStringa(x));
+        }
       return s;
     }
 
@@ -205,6 +204,11 @@ public class Manager {
         dati[3] = String.valueOf(a.getPrezzo());
 
         dati[4] = a.getServizi().toString();
+        dati[4] = dati[4].replace("[","");
+        dati[4] = dati[4].replace("]","");
+        
+       
+        
 
         dati[5] = a.getTipoAlloggio();
         ArrayList<String> date=new ArrayList<>();
@@ -213,9 +217,15 @@ public class Manager {
                 date.add(Manager.indiceaGiorno(i));
             }
         }
+        
         dati[6] = Arrays.toString(date.toArray());
-
+        dati[6] = dati[6].replace("[","");
+        dati[6] = dati[6].replace("]","");
+        
+                
         dati[7] = a.getRecensioni().toString();
+        dati[7] = dati[7].replace("[","");
+        dati[7] = dati[7].replace("]","");
 
         dati[8] = a.getProprietario();
         //dati[9] = String.valueOf(a.getCod());

@@ -6,6 +6,8 @@ package View;
 
 import Control.Manager;
 import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -228,6 +230,92 @@ public class EditVendor extends javax.swing.JDialog {
 
     private void SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesActionPerformed
         // TODO add your handling code here:
+        // NAME
+        if (nome.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Name field cannot be empty!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // LOCATION
+        if (location.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Location field cannot be empty!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // ROOMS
+        if (camere.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Rooms field cannot be empty!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            Integer.parseInt(camere.getText().trim());
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Rooms must be a number!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // PRICE
+        if (prezzo.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Price field cannot be empty!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            Double.parseDouble(prezzo.getText().trim());
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Price must be a number!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // TYPE
+        if (tipoAlloggio.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Accommodation type field cannot be empty!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // SERVICES
+        javax.swing.table.DefaultTableModel model1 = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        boolean servizioValido = false;
+        for (int i = 0; i < model1.getRowCount(); i++) {
+            Object valore = model1.getValueAt(i, 0);
+            if (valore != null && !valore.toString().trim().isEmpty()) {
+                servizioValido = true;
+                break;
+            }
+        }
+
+        if (!servizioValido) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Insert at least one service!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // DATES
+        javax.swing.table.DefaultTableModel model2 = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+        boolean dataValida = false;
+        for (int i = 0; i < model2.getRowCount(); i++) {
+            Object valore = model2.getValueAt(i, 0);
+            if (valore != null && !valore.toString().trim().isEmpty()) {
+
+                String data = valore.toString().trim();
+                for (int j = 0; j < data.length(); j++) {
+                    char c = data.charAt(j);
+                    if (!Character.isDigit(c) && c != '/') {
+                        javax.swing.JOptionPane.showMessageDialog(this,"Invalid date: only numbers and '/' are allowed!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+                dataValida = true;
+            }
+        }
+
+        if (!dataValida) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Insert at least one date!","Input Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         getDatiAggiornati();
         this.dispose();
     }//GEN-LAST:event_SaveChangesActionPerformed

@@ -170,7 +170,6 @@ public class ByLocationVendor extends javax.swing.JDialog {
         }
         // Lista housing trovati
         ArrayList<Housing> risultati = m.ricercaperLocalità(testo);
-        System.out.println("Trovati: " + risultati.size());
 
         // Lista da dare alla JTable
         ArrayList<String[]> dati = new ArrayList<>();

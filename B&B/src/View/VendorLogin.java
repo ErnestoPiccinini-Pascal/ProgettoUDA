@@ -22,6 +22,7 @@ public class VendorLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(255, 255, 255));
         m= new Manager();
+        jPasswordField1.setEchoChar('•');
         
         
         show.setBackground(Color.WHITE);
@@ -211,25 +212,42 @@ public class VendorLogin extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
+        // Prende username
         username = jTextField1.getText().trim();
+
+        // Controllo username vuoto
         if (username.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this,"Riempire il campo username!","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,"Please fill in the username field!","Login Error",javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
+        // Prende password
         password = new String(jPasswordField1.getPassword()).trim();
+
+        // Controllo password vuota
         if (password.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this,"Riempire il campo password!","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,"Please fill in the password field!","Login Error",javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
+        // Carica utenti registrati
         Manager.caricaRegistrati("config.ini");
+
+        // Imposta utente attuale
         Manager.setUtenteAtt(username);
-        if(m.getRegistrati().get(username)==null){
-            javax.swing.JOptionPane.showMessageDialog(this,"Password o username errati","Errore",javax.swing.JOptionPane.WARNING_MESSAGE);
-        }
+
+        // Controllo username
+        if (m.getRegistrati().get(username) == null) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Incorrect username!","Login Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+        } 
         else{
-            if(m.getRegistrati().get(username).equals(password)){
+            // Controllo password
+            if (!m.getRegistrati().get(username).equals(password)) {
+
+                javax.swing.JOptionPane.showMessageDialog(this,"Incorrect password!","Login Error",javax.swing.JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                // Login corretto
                 VendorHome home = new VendorHome();
                 home.setVisible(true);
 

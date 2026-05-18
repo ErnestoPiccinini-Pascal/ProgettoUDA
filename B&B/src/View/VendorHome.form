@@ -288,7 +288,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="BUB B&amp;B"/>
+            <Property name="text" type="java.lang.String" value="BUS B&amp;B"/>
           </Properties>
         </Component>
       </SubComponents>

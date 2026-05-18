@@ -72,19 +72,25 @@ public class VendorHome extends javax.swing.JFrame {
     private void apriSelectCSV() {
         JFileChooser chooser = new JFileChooser();
         int scelta = chooser.showOpenDialog(this);
-        
+
         if (scelta == JFileChooser.APPROVE_OPTION) {
-            
+            // RESET tabella
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
             File file = chooser.getSelectedFile();
             percorsoFile = file.getAbsolutePath();
             dati = CsvManager.getDatiAlloggi();
+
+            // RESET dati
+            dati.clear();
             CsvManager.leggiCSV(percorsoFile, dati);
             m.caricaAlloggi();
-            dati=m.ricercaperProprietario(Manager.getUtenteAtt());
-            caricaTabella(m.ricercaperProprietario(Manager.getUtenteAtt()));
-            m.caricaAlloggi();      
-        }else {
-            JOptionPane.showMessageDialog(this,"Nessun file selezionato!");
+            dati = m.ricercaperProprietario(Manager.getUtenteAtt());
+            caricaTabella(dati);
+            m.caricaAlloggi();
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"No file selected!");
         }
     }
 
@@ -93,42 +99,36 @@ public class VendorHome extends javax.swing.JFrame {
         int riga = jTable1.getSelectedRow();
 
         if (riga == -1) {
-            JOptionPane.showMessageDialog(this, "Seleziona una riga!");
+            JOptionPane.showMessageDialog(this, "Select a row!");
             return;
         }
 
-        ArrayList<Housing> lista =
-                m.getProprietari()
-                 .get(Manager.getUtenteAtt())
-                 .getAlloggiGestiti();
+        ArrayList<Housing> lista =m.getProprietari().get(Manager.getUtenteAtt()).getAlloggiGestiti();
 
         if (riga >= lista.size()) {
-            JOptionPane.showMessageDialog(this, "Indice non valido!");
+            JOptionPane.showMessageDialog(this, "Invalid index!");
             return;
         }
 
         Housing h = lista.get(riga);
-
         m.delete(h);
-
-        // 🔥 NON toccare dati manualmente
         dati = m.ricercaperProprietario(Manager.getUtenteAtt());
         caricaTabella(dati);
 
-        JOptionPane.showMessageDialog(this, "Elemento eliminato!");
+        JOptionPane.showMessageDialog(this, "Item deleted!");
     }
 
     private void modificaRiga() {
 
         if (dati == null) {
-            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            JOptionPane.showMessageDialog(this, "Load a file first!");
             return;
         }
 
         int riga = jTable1.getSelectedRow();
 
         if (riga == -1) {
-            JOptionPane.showMessageDialog(this, "Seleziona una riga!");
+            JOptionPane.showMessageDialog(this, "Select a row!");
             return;
         }
 
@@ -151,11 +151,11 @@ public class VendorHome extends javax.swing.JFrame {
     private void salvaCSV() {
 
         if (dati == null) {
-            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            JOptionPane.showMessageDialog(this, "Load a file first!");
             return;
         }
         CsvManager.salvaAlloggi("Salva.csv",CsvManager.getDatiAlloggi());
-        JOptionPane.showMessageDialog(this, "Salvato!");
+        JOptionPane.showMessageDialog(this, "Saved!");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -222,7 +222,7 @@ public class VendorHome extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(237, 213, 121));
         jLabel2.setFont(new java.awt.Font("Lato Semibold", 0, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("BUB B&B");
+        jLabel2.setText("BUS B&B");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -382,9 +382,9 @@ public class VendorHome extends javax.swing.JFrame {
 
     private void InsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertActionPerformed
         // TODO add your handling code here:
-         if (dati == null) {
-        JOptionPane.showMessageDialog(this, "Carica prima il file!");
-        return;
+        if (dati == null) {
+            JOptionPane.showMessageDialog(this, "Load a file first!");
+            return;
         }
 
         InsertVendor ins = new InsertVendor(this, true);
@@ -404,7 +404,7 @@ public class VendorHome extends javax.swing.JFrame {
     private void ByLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ByLocationActionPerformed
         // TODO add your handling code here:
         if (dati == null) {
-            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            JOptionPane.showMessageDialog(this, "Load a file first!");
             return;
         }
         
@@ -415,7 +415,7 @@ public class VendorHome extends javax.swing.JFrame {
     private void ByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ByPriceActionPerformed
         // TODO add your handling code here:
         if (dati == null) {
-            JOptionPane.showMessageDialog(this, "Carica prima il file!");
+            JOptionPane.showMessageDialog(this, "Load a file first!");
             return;
         }
         

@@ -172,7 +172,6 @@ public class ByPriceVendor extends javax.swing.JDialog {
         
         // Lista housing trovati
         ArrayList<Housing> risultati = m.ricercaperPrezzoMin(prezzo);
-        System.out.println("Trovati: " + risultati.size());
 
         // Lista da dare alla JTable
         ArrayList<String[]> dati = new ArrayList<>();
