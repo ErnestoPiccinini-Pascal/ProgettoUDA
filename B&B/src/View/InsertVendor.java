@@ -291,7 +291,7 @@ public class InsertVendor extends javax.swing.JDialog {
 
         for (int i = 0; i < model1.getRowCount(); i++) {
             Object v = model1.getValueAt(i, 0);
-            if (v != null && !v.toString().isBlank()) {
+            if (v != null && !v.toString().isEmpty()) {
                 serv += v.toString();
                 if (i < model1.getRowCount() - 1) serv += ",";
             }
@@ -308,7 +308,7 @@ public class InsertVendor extends javax.swing.JDialog {
 
         for (int i = 0; i < model2.getRowCount(); i++) {
             Object v = model2.getValueAt(i, 0);
-            if (v != null && !v.toString().isBlank()) {
+            if (v != null && !v.toString().isEmpty()) {
                 disp += v.toString();
                 if (i < model2.getRowCount() - 1) disp += ",";
             }

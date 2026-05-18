@@ -307,7 +307,7 @@ public class EditVendor extends javax.swing.JDialog {
 
         for (int i = 0; i < model1.getRowCount(); i++) {
             Object valore = model1.getValueAt(i, 0);
-            if (valore != null && !valore.toString().isBlank()) {
+            if (valore != null && !valore.toString().isEmpty()) {
 
                 serv += valore.toString();
                 if (i < model1.getRowCount() - 1) {
@@ -325,7 +325,7 @@ public class EditVendor extends javax.swing.JDialog {
         for (int i = 0; i < model2.getRowCount(); i++) {
 
             Object valore = model2.getValueAt(i, 0);
-            if (valore != null && !valore.toString().isBlank()) {
+            if (valore != null && !valore.toString().isEmpty()) {
 
                 available += valore.toString();
                 if (i < model2.getRowCount() - 1) {

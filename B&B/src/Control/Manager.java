@@ -5,8 +5,6 @@
 package Control;
 
 import Model.Housing;
-import Model.Booking;
-import Model.Client;
 import Model.Seller;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +25,6 @@ public class Manager {
     
     private static Map<String,String> registrati=new HashMap<>();
 
-    public static Map<String, Client> getClienti() {
-        return clienti;
-    }
-
     public CsvManager getCsv() {
         return csv;
     }
@@ -44,7 +38,7 @@ public class Manager {
     }
 
     private static Map<String, Seller> proprietari = new HashMap<>();
-    private static Map<String, Client> clienti = new HashMap<>();
+
     private CsvManager csv=new CsvManager();
     private static String utenteAtt;
     private static int annoCorrente=2026;
@@ -79,7 +73,7 @@ public class Manager {
         prezzo = Double.parseDouble(riga[3]);
 
         servizi = new ArrayList<>();
-        if (!riga[4].isBlank()) {
+        if (!riga[4].isEmpty()) {
             for (String x : riga[4].split(",")) {
                 servizi.add(x.trim());
             }
@@ -90,14 +84,14 @@ public class Manager {
         dateDisponibili = new Boolean[365];
         Arrays.fill(dateDisponibili, true);
 
-        if (!riga[6].isBlank()) {
+        if (!riga[6].isEmpty()) {
             for (String x : riga[6].split(",")) {
                 dateDisponibili[giornoaIndice(x.trim())] = false;
             }
         }
 
         recensioni = new ArrayList<>();
-        if (!riga[7].isBlank()) {
+        if (!riga[7].isEmpty()) {
             for (String x : riga[7].split(",")) {
                 recensioni.add(Double.valueOf(x.trim()));
             }
@@ -288,7 +282,7 @@ public class Manager {
         // SERVIZI
         ArrayList<String> servizi = new ArrayList<>();
 
-        if (!valori[4].isBlank()) {
+        if (!valori[4].isEmpty()) {
 
             for (String x : valori[4].split(",")) {
                 servizi.add(x.trim());
@@ -302,13 +296,13 @@ public class Manager {
         Boolean[] dateDisponibili = new Boolean[365];
         Arrays.fill(dateDisponibili, true);
 
-        if (!valori[6].isBlank()) {
+        if (!valori[6].isEmpty()) {
 
             for (String x : valori[6].split(",")) {
 
                 x = x.trim();
 
-                if (!x.isBlank()) {
+                if (!x.isEmpty()) {
                     dateDisponibili[this.giornoaIndice(x)] = false;
                 }
             }
@@ -317,13 +311,13 @@ public class Manager {
         // RECENSIONI
         ArrayList<Double> recensioni = new ArrayList<>();
 
-        if (!valori[7].isBlank()) {
+        if (!valori[7].isEmpty()) {
 
             for (String x : valori[7].split(",")) {
 
                 x = x.trim();
 
-                if (!x.isBlank()) {
+                if (!x.isEmpty()) {
                     recensioni.add(Double.valueOf(x));
                 }
             }
@@ -403,7 +397,7 @@ public class Manager {
 
         ArrayList<String> servizi = new ArrayList<>();
 
-        if (!valori[4].isBlank()) {
+        if (!valori[4].isEmpty()) {
 
             for (String x : valori[4].split(",")) {
                 servizi.add(x.trim());
@@ -415,13 +409,13 @@ public class Manager {
         Boolean[] dateDisponibili = new Boolean[365];
         Arrays.fill(dateDisponibili, true);
 
-        if (!valori[6].isBlank()) {
+        if (!valori[6].isEmpty()) {
 
             for (String x : valori[6].split(",")) {
 
                 x = x.trim();
 
-                if (!x.isBlank()) {
+                if (!x.isEmpty()) {
                     dateDisponibili[this.giornoaIndice(x)] = false;
                 }
             }
@@ -429,13 +423,13 @@ public class Manager {
 
         ArrayList<Double> recensioni = new ArrayList<>();
 
-        if (!valori[7].isBlank()) {
+        if (!valori[7].isEmpty()) {
 
             for (String x : valori[7].split(",")) {
 
                 x = x.trim();
 
-                if (!x.isBlank()) {
+                if (!x.isEmpty()) {
                     recensioni.add(Double.valueOf(x));
                 }
             }
@@ -485,68 +479,8 @@ public class Manager {
     }
         
     
-    public void caricaPrenotazioni() {
-        //0
-        String userName;
-        //1
-        String housingName;
-        //2
-        int firstDay;
-        //3
-        int lastDay;
-        //4
-        double price;
-        int cod=0;
-        Housing alloggio;
-
-        boolean primaRiga = true;
-
-        for (String[] riga : CsvManager.getDatiPrenotazioni()) {
-
-            // salta header csv
-            if (primaRiga) {
-                primaRiga = false;
-                continue;
-            }
-
-            Arrays.setAll(riga, i -> riga[i].replace("\"", "").trim());
-
-            String[] valori = riga;
-
-            userName = valori[0];
-            housingName = valori[1];
-
-            // converte data -> indice
-            firstDay = giornoaIndice(valori[2]);
-            lastDay = giornoaIndice(valori[3]);
-
-            price = Double.parseDouble(valori[4]);
-
-            alloggio = null;
-
-            // cerca alloggio
-            for (Housing h : alloggi) {
-                if (h.getNome().equalsIgnoreCase(housingName)) {
-                    alloggio = h;
-                    break;
-                }
-            }
-
-            // crea cliente se non esiste
-            if (clienti.get(userName.toLowerCase()) == null) {
-                clienti.put(userName.toLowerCase(),new Client(userName, ""));
-            }
-            // aggiunge prenotazione al cliente
-            clienti.get(userName.toLowerCase()).prenota(userName,housingName,firstDay,lastDay,price,alloggio,cod);
-            cod++;
-        }
-    }
-    public ArrayList<Booking> ricercaperPrenotazione(String p){
-     return clienti.get(p).getPrenotazioni();
-    }
-    public String[] prenotazioneaStringa(Booking b){
-        return CsvManager.getDatiPrenotazioni().get(b.getCod());
-    }
+    
+    
     
 
 }
